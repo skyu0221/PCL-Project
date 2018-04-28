@@ -1,0 +1,2724 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{PCL Data Analysis Notebook (Building 1)}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{PLC Buildings' Data
+Analysis}\label{plc-buildings-data-analysis}
+
+\subsection{Summary}\label{summary}
+
+This notebook shows our analysis of the time series data gathered from
+the PCL buildings. The buildings contains various types of rooms, each
+equiped with number of sensors and actuators. Throughout this study, we
+leverage the data from the sensors and actuators as well as weather
+forecasts in order to infer occupancies of the building zones. This
+experiments focus on designing Grey-box and Black-box modeling of each
+zone. In addition, we employ the available sources of data, hence, our
+modeling is indeed data-driven.
+
+Our methods are based on linear regression/unsupervised/supervised
+methods. on each method we make assumptions that might be considered as
+the limitations of the method. However, our results indicates that the
+methods are promising and can used to extract occupancy traces for each
+room.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{} boilerplate imports}
+        \PY{k+kn}{import} \PY{n+nn}{time}
+        \PY{k+kn}{import} \PY{n+nn}{datetime}
+        \PY{k+kn}{import} \PY{n+nn}{math}
+        \PY{k+kn}{import} \PY{n+nn}{json}
+        \PY{k+kn}{import} \PY{n+nn}{pvlib}
+        
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{from} \PY{n+nn}{itertools} \PY{k}{import} \PY{n}{cycle}
+        
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+\end{Verbatim}
+
+
+    \subsection{Global Constants}\label{global-constants}
+
+In this section, we define the following constants: - room list: the
+list of different zones, i.e. offices, corridors, washrooms etc. -
+sensor list: the list of sensors and actuators to be monitored - start
+and end dates: indicate the days to be monitored - Other variables for
+plotting purposes
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+        \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} GLOBAL CONSTANTS \PYZsh{}\PYZsh{}\PYZsh{}}
+        \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+        
+        \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+sd}{The list of rooms, and the list of sense and control points }
+        \PY{l+s+sd}{should be read from a metadata store but for now they are hardcoded}
+        \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        
+        
+        \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} Building 1 Rooms \PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+        \PY{c+c1}{\PYZsh{} Interior Offices:}
+        \PY{c+c1}{\PYZsh{} interior\PYZus{}offices\PYZus{}private = [1185, 1166, 1164, 2172]}
+        \PY{c+c1}{\PYZsh{} interior\PYZus{}offices\PYZus{}shared  = [1144, 1188]}
+        
+        \PY{c+c1}{\PYZsh{} Exterior Offices:}
+        \PY{c+c1}{\PYZsh{} exterior\PYZus{}offices\PYZus{}private = [1120, 1121, 1122, 1123, 1124, 1125, 1130, 1131, 1141, 1143, \PYZbs{}}
+        \PY{c+c1}{\PYZsh{}                             1154, 1155, 2103, 2102, 2122, 2124, 2125, 2126, 2128, 2134, \PYZbs{}}
+        \PY{c+c1}{\PYZsh{}                             2136, 2138, 2140, 2144, 2146, 2156, 2157, 3106, 3108, 3110, \PYZbs{}}
+        \PY{c+c1}{\PYZsh{}                             3116, 3118, 3122, 3124, 1118, 1126, 1156, 2150, 2152, 2154, \PYZbs{}}
+        \PY{c+c1}{\PYZsh{}                             3130, 3132, 3140, 3142, 3144, 3146, 3148]}
+        \PY{c+c1}{\PYZsh{} exterior\PYZus{}offices\PYZus{}shared  = [1156, 1118]}
+        
+        \PY{c+c1}{\PYZsh{} Corridors: }
+        \PY{c+c1}{\PYZsh{} corridors = [1112, 1114, 1174, 1152, 1158, 2175, 3114, 3104, \PYZbs{}}
+        \PY{c+c1}{\PYZsh{}              2108, 2175]}
+        
+        \PY{c+c1}{\PYZsh{} Facility Rooms:}
+        \PY{c+c1}{\PYZsh{} facility = [1136, 1163, 2180, 2117]}
+        
+        \PY{c+c1}{\PYZsh{} Elevators:}
+        \PY{c+c1}{\PYZsh{} elevators = [2118]}
+        
+        \PY{c+c1}{\PYZsh{} Washtooms:}
+        \PY{c+c1}{\PYZsh{} washrooms = [1169, 1167, 2169, 2171]}
+        
+        \PY{c+c1}{\PYZsh{} SharedPlaces (Lobby, Meeting Rooms):}
+        \PY{c+c1}{\PYZsh{} open\PYZus{}area = [11103, 1101, 1150, 2104, 2158, 2148, 2190, 2184, 2130]}
+        \PY{c+c1}{\PYZsh{} meeting = [1108, 1106, 1104, 1162, 1165, 1142, 1128, 2016, 2170, 2142]}
+        \PY{c+c1}{\PYZsh{} conference = [2110]}
+        
+        \PY{c+c1}{\PYZsh{} room\PYZus{}list = conference + meeting + open\PYZus{}area + washrooms + elevators + facility + \PYZbs{}}
+        \PY{c+c1}{\PYZsh{}             corridors + exterior\PYZus{}offices\PYZus{}shared + exterior\PYZus{}offices\PYZus{}private + \PYZbs{}}
+        \PY{c+c1}{\PYZsh{}             exterior\PYZus{}offices\PYZus{}private + interior\PYZus{}offices\PYZus{}shared + interior\PYZus{}offices\PYZus{}private}
+        
+        \PY{n}{room\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{101}\PY{p}{,} \PY{l+m+mi}{102}\PY{p}{,} \PY{l+m+mi}{103}\PY{p}{,} \PY{l+m+mi}{104}\PY{p}{,} \PY{l+m+mi}{105}\PY{p}{,} \PY{l+m+mi}{106}\PY{p}{,} \PY{l+m+mi}{107}\PY{p}{,} \PY{l+m+mi}{108}\PY{p}{,} \PY{l+m+mi}{109}\PY{p}{,} \PY{l+m+mi}{110}\PY{p}{,} \PY{l+m+mi}{111}\PY{p}{,} \PY{l+m+mi}{112}\PY{p}{,} \PY{l+m+mi}{113}\PY{p}{,} \PY{l+m+mi}{114}\PY{p}{,} \PYZbs{}
+                     \PY{l+m+mi}{115}\PY{p}{,} \PY{l+m+mi}{116}\PY{p}{,} \PY{l+m+mi}{117}\PY{p}{,} \PY{l+m+mi}{118}\PY{p}{,} \PY{l+m+mi}{119}\PY{p}{,} \PY{l+m+mi}{120}\PY{p}{,} \PY{l+m+mi}{121}\PY{p}{,} \PY{l+m+mi}{122}\PY{p}{,} \PY{l+m+mi}{123}\PY{p}{,} \PY{l+m+mi}{124}\PY{p}{,} \PY{l+m+mi}{125}\PY{p}{,} \PY{l+m+mi}{126}\PY{p}{,} \PY{l+m+mi}{201}\PY{p}{,} \PY{l+m+mi}{202}\PY{p}{,} \PYZbs{}
+                     \PY{l+m+mi}{203}\PY{p}{,} \PY{l+m+mi}{204}\PY{p}{,} \PY{l+m+mi}{205}\PY{p}{,} \PY{l+m+mi}{206}\PY{p}{,} \PY{l+m+mi}{207}\PY{p}{,} \PY{l+m+mi}{208}\PY{p}{,} \PY{l+m+mi}{209}\PY{p}{,} \PY{l+m+mi}{210}\PY{p}{,} \PY{l+m+mi}{211}\PY{p}{,} \PY{l+m+mi}{212}\PY{p}{,} \PY{l+m+mi}{213}\PY{p}{,} \PY{l+m+mi}{214}\PY{p}{,} \PY{l+m+mi}{215}\PY{p}{,} \PY{l+m+mi}{216}\PY{p}{,} \PYZbs{}
+                     \PY{l+m+mi}{217}\PY{p}{,} \PY{l+m+mi}{218}\PY{p}{,} \PY{l+m+mi}{219}\PY{p}{,} \PY{l+m+mi}{227}\PY{p}{,} \PY{l+m+mi}{228}\PY{p}{,} \PY{l+m+mi}{229}\PY{p}{,} \PY{l+m+mi}{230}\PY{p}{,} \PY{l+m+mi}{231}\PY{p}{,} \PY{l+m+mi}{232}\PY{p}{,} \PY{l+m+mi}{233}\PY{p}{,} \PY{l+m+mi}{234}\PY{p}{,} \PY{l+m+mi}{235}\PY{p}{,} \PY{l+m+mi}{236}\PY{p}{,} \PY{l+m+mi}{301}\PY{p}{,} \PYZbs{}
+                     \PY{l+m+mi}{302}\PY{p}{,} \PY{l+m+mi}{303}\PY{p}{,} \PY{l+m+mi}{304}\PY{p}{,} \PY{l+m+mi}{305}\PY{p}{,} \PY{l+m+mi}{306}\PY{p}{,} \PY{l+m+mi}{307}\PY{p}{,} \PY{l+m+mi}{308}\PY{p}{,} \PY{l+m+mi}{309}\PY{p}{,} \PY{l+m+mi}{310}\PY{p}{,} \PY{l+m+mi}{311}\PY{p}{,} \PY{l+m+mi}{312}\PY{p}{,} \PY{l+m+mi}{313}\PY{p}{,} \PY{l+m+mi}{314}\PY{p}{,} \PY{l+m+mi}{315}\PY{p}{,} \PYZbs{}
+                     \PY{l+m+mi}{316}\PY{p}{,} \PY{l+m+mi}{317}\PY{p}{,} \PY{l+m+mi}{318}\PY{p}{,} \PY{l+m+mi}{319}\PY{p}{,} \PY{l+m+mi}{320}\PY{p}{,} \PY{l+m+mi}{321}\PY{p}{,} \PY{l+m+mi}{323}\PY{p}{,} \PY{l+m+mi}{324}\PY{p}{,} \PY{l+m+mi}{325}\PY{p}{,} \PY{l+m+mi}{326}\PY{p}{,} \PY{l+m+mi}{327}\PY{p}{,} \PY{l+m+mi}{328}\PY{p}{,} \PY{l+m+mi}{329}\PY{p}{]}
+        
+        
+        \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} Building 2 Rooms \PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+        \PY{c+c1}{\PYZsh{} Interior Offices:}
+        \PY{c+c1}{\PYZsh{} interior\PYZus{}offices\PYZus{}private = [306, 304, 302]}
+        \PY{c+c1}{\PYZsh{} Exterior Offices:}
+        \PY{c+c1}{\PYZsh{} exterior\PYZus{}offices\PYZus{}private = [231, 229, 227, 223, 219, 217, 213, 211, 202, 203, 201, 443, 431, 429, 427, \PYZbs{}}
+        \PY{c+c1}{\PYZsh{}                             428, 424, 421, 419, 417, 413, 411, 409, 407, 403, 341, 412, 408, 406, 404, \PYZbs{}}
+        \PY{c+c1}{\PYZsh{}                             402, 333, 329, 327, 323, 321, 319, 339, 322, 318, 316, 314, 308, 337, 433, \PYZbs{}}
+        \PY{c+c1}{\PYZsh{}                             317, 313, 311, 309, 307, 303]}
+        \PY{c+c1}{\PYZsh{} Corridors:}
+        \PY{c+c1}{\PYZsh{} corridors = [216, 208, 105, 226, 209, 212, \PYZbs{}}
+        \PY{c+c1}{\PYZsh{}              101, 103, 418, 312]}
+        \PY{c+c1}{\PYZsh{} Facility Rooms:}
+        \PY{c+c1}{\PYZsh{} facility\PYZus{}rooms = [206, 301]}
+        \PY{c+c1}{\PYZsh{} Elevators:}
+        \PY{c+c1}{\PYZsh{} elevators = []}
+        \PY{c+c1}{\PYZsh{} Washtooms:}
+        \PY{c+c1}{\PYZsh{} washrooms = []}
+        \PY{c+c1}{\PYZsh{} SharedPlaces (Lobby, Meeting Rooms):}
+        \PY{c+c1}{\PYZsh{} shared\PYZus{}places = [204, 401, 205, 207]}
+        
+        \PY{c+c1}{\PYZsh{} room\PYZus{}list = facility\PYZus{}rooms}
+        \PY{c+c1}{\PYZsh{} room\PYZus{}list = [106, 112, 210, 230, 312, 327, 328, 329, 303]}
+        \PY{c+c1}{\PYZsh{} room\PYZus{}list = [118, 303, 105, 121, 104, 106, 208]}
+        
+        \PY{c+c1}{\PYZsh{} sensor\PYZus{}list = [\PYZsq{}TL1\PYZsq{}, \PYZsq{}TL2\PYZsq{}, \PYZsq{}TL3\PYZsq{}, \PYZsq{}TL4\PYZsq{}, \PYZsq{}TL5\PYZsq{}, \PYZsq{}TL6\PYZsq{}, \PYZsq{}TL8\PYZsq{}, \PYZsq{}TL13\PYZsq{}]}
+        \PY{c+c1}{\PYZsh{} sensor\PYZus{}list = [\PYZsq{}TL1\PYZsq{}, \PYZsq{}TL3\PYZsq{}, \PYZsq{}TL5\PYZsq{}, \PYZsq{}TL6\PYZsq{}, \PYZsq{}TL8\PYZsq{}]}
+        
+        \PY{n}{sensor\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TL1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TL3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TL5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TL8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TL6}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} sensor\PYZus{}list = [\PYZsq{}TL1\PYZsq{}]}
+        \PY{c+c1}{\PYZsh{} sensor\PYZus{}list = [\PYZsq{}TL1\PYZsq{}, \PYZsq{}TL13\PYZsq{}, \PYZsq{}TL2\PYZsq{}, \PYZsq{}TL3\PYZsq{}, \PYZsq{}TL4\PYZsq{}, \PYZsq{}TL5\PYZsq{}, \PYZsq{}TL6\PYZsq{}, \PYZsq{}TL8\PYZsq{}, \PYZsq{}TL91\PYZsq{}, \PYZsq{}TL92\PYZsq{}]}
+        
+        \PY{n}{start\PYZus{}time} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2017\PYZhy{}01\PYZhy{}23 00:00:00}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{end\PYZus{}time} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2017\PYZhy{}03\PYZhy{}06 00:00:00}\PY{l+s+s1}{\PYZsq{}}
+        
+        \PY{c+c1}{\PYZsh{} start\PYZus{}time = \PYZsq{}2017\PYZhy{}04\PYZhy{}10 00:00:00\PYZsq{}}
+        \PY{c+c1}{\PYZsh{} end\PYZus{}time = \PYZsq{}2017\PYZhy{}05\PYZhy{}01 00:00:00\PYZsq{}}
+        
+        \PY{c+c1}{\PYZsh{} Specify the first day}
+        
+        \PY{n}{firstday} \PY{o}{=} \PY{l+m+mi}{0} \PY{c+c1}{\PYZsh{} 0 \PYZhy{}\PYZgt{} Monday}
+        \PY{n}{days\PYZus{}number} \PY{o}{=} \PY{l+m+mi}{42}
+        
+        
+        \PY{n}{daylbl} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Monday}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tuesday}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Wednesday}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Thursday}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Friday}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Saturday}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sunday}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} daylbl = [\PYZsq{}Monday\PYZsq{}, \PYZsq{}Tuesday\PYZsq{}, \PYZsq{}Wednesday\PYZsq{}, \PYZsq{}Thursday\PYZsq{}, \PYZsq{}Friday\PYZsq{}, \PYZsq{}Saturday\PYZsq{}, \PYZsq{}Sunday\PYZsq{}, \PYZbs{}}
+        \PY{c+c1}{\PYZsh{}          \PYZsq{}Monday\PYZsq{}, \PYZsq{}Tuesday\PYZsq{}, \PYZsq{}Wednesday\PYZsq{}, \PYZsq{}Thursday\PYZsq{}, \PYZsq{}Friday\PYZsq{}, \PYZsq{}Saturday\PYZsq{}, \PYZsq{}Sunday\PYZsq{}, \PYZbs{}}
+        \PY{c+c1}{\PYZsh{}          \PYZsq{}Monday\PYZsq{}, \PYZsq{}Tuesday\PYZsq{}, \PYZsq{}Wednesday\PYZsq{}, \PYZsq{}Thursday\PYZsq{}, \PYZsq{}Friday\PYZsq{}, \PYZsq{}Saturday\PYZsq{}, \PYZsq{}Sunday\PYZsq{}, \PYZbs{}}
+        \PY{c+c1}{\PYZsh{}          \PYZsq{}Monday\PYZsq{}, \PYZsq{}Tuesday\PYZsq{}, \PYZsq{}Wednesday\PYZsq{}, \PYZsq{}Thursday\PYZsq{}, \PYZsq{}Friday\PYZsq{}, \PYZsq{}Saturday\PYZsq{}, \PYZsq{}Sunday\PYZsq{}, \PYZbs{}}
+        \PY{c+c1}{\PYZsh{}          \PYZsq{}Monday\PYZsq{}, \PYZsq{}Tuesday\PYZsq{}, \PYZsq{}Wednesday\PYZsq{}, \PYZsq{}Thursday\PYZsq{}, \PYZsq{}Friday\PYZsq{}, \PYZsq{}Saturday\PYZsq{}, \PYZsq{}Sunday\PYZsq{}]}
+        
+        \PY{n}{day\PYZus{}labels} \PY{o}{=} \PY{n}{daylbl}\PY{p}{[}\PY{n}{firstday}\PY{p}{:}\PY{p}{]} \PY{o}{+} \PY{n}{daylbl}\PY{p}{[}\PY{p}{:}\PY{n}{firstday}\PY{p}{]}
+        \PY{n}{maxnumreadings} \PY{o}{=} \PY{l+m+mi}{0}
+\end{Verbatim}
+
+
+    \subsection{Reading Data}\label{reading-data}
+
+This section reads sensor data for every room in 'room\_list'. It is
+important to note that not all sensors are available in each zone. The
+section contains the following parts:
+
+\begin{itemize}
+\tightlist
+\item
+  Function 'getAndFormatData': Gets the data for a uuid and returns a
+  windowed resampled pandas series
+\item
+  Function 'addToData': Formats the pandas objects into a data array
+\item
+  Function 'getSortedNamedStream': Gets sensor data for a specific zone
+\item
+  Two scripts for pulling in data and removing data of sensors that have
+  less readings of a defined threshold
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k}{def} \PY{n+nf}{getAndFormatData}\PY{p}{(}\PY{n}{zone}\PY{p}{,} \PY{n}{stream\PYZus{}name}\PY{p}{,} \PY{n}{prefix}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+sd}{    Gets the data for a uuid and returns a windowed resampled pandas series}
+        \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+            
+            \PY{k}{global} \PY{n}{maxnumreadings}
+            
+            \PY{k}{try}\PY{p}{:}
+                \PY{n}{json\PYZus{}data} \PY{o}{=} \PY{n}{json}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../PCL/Bldg1/}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{prefix} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{.}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{.json}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{zone}\PY{p}{,} \PY{n}{stream\PYZus{}name}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+                
+                \PY{n}{samples} \PY{o}{=} \PY{n}{json\PYZus{}data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{samples}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+                \PY{c+c1}{\PYZsh{} point\PYZus{}count = json\PYZus{}data[\PYZdq{}count\PYZdq{}]}
+                
+            \PY{k}{except} \PY{p}{(}\PY{n+ne}{FileNotFoundError}\PY{p}{,} \PY{n+ne}{KeyError}\PY{p}{)} \PY{k}{as} \PY{n}{er}\PY{p}{:}
+                \PY{c+c1}{\PYZsh{} print(\PYZdq{}Error: No samples found for stream\PYZus{}name : \PYZpc{}s in zone : \PYZpc{}s\PYZdq{} \PYZpc{} (stream\PYZus{}name, zone))}
+                
+                \PY{k}{raise} \PY{n}{er}
+                \PY{c+c1}{\PYZsh{} return \PYZob{}\PYZcb{}}
+            
+            \PY{k}{else}\PY{p}{:}
+                \PY{n}{values} \PY{o}{=} \PY{p}{[}\PY{n}{dp}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{v}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{k}{for} \PY{n}{dp} \PY{o+ow}{in} \PY{n}{samples}\PY{p}{]}
+                \PY{n}{timestamps} \PY{o}{=} \PY{p}{[}\PY{n}{dp}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ts}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{k}{for} \PY{n}{dp} \PY{o+ow}{in} \PY{n}{samples}\PY{p}{]}
+                \PY{n}{ts\PYZus{}dt} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{datetime}\PY{o}{.}\PY{n}{datetime}\PY{o}{.}\PY{n}{strptime}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{Y\PYZhy{}}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{m\PYZhy{}}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{H:}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{M:}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{S.}\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,} \PY{n}{timestamps}\PY{p}{)}\PY{p}{)}
+                
+                \PY{c+c1}{\PYZsh{}print(ts\PYZus{}dt)}
+                
+                \PY{n}{sensor\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+        
+                \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{ts\PYZus{}dt}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{sensor\PYZus{}dict}\PY{p}{[}\PY{n}{ts\PYZus{}dt}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{]} \PY{o}{=} \PY{n}{values}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{}         pd\PYZus{}sensor = pd.Series(sensor\PYZus{}dict).loc[\PYZsq{}2016\PYZhy{}12\PYZhy{}18 00:00:00\PYZsq{}:\PYZsq{}2017\PYZhy{}12\PYZhy{}18 00:00:00\PYZsq{}]}
+                \PY{n}{pd\PYZus{}sensor} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{sensor\PYZus{}dict}\PY{p}{)}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{start\PYZus{}time}\PY{p}{:}\PY{n}{end\PYZus{}time}\PY{p}{]}
+                
+                \PY{k}{if} \PY{n}{maxnumreadings} \PY{o}{\PYZlt{}} \PY{n+nb}{len}\PY{p}{(}\PY{n}{pd\PYZus{}sensor}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{maxnumreadings} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{pd\PYZus{}sensor}\PY{p}{)}
+                
+                \PY{c+c1}{\PYZsh{} resampled = pd\PYZus{}sensor.resample(\PYZsq{}10T\PYZsq{}).mean().ffill()}
+                \PY{n}{resampled} \PY{o}{=} \PY{n}{pd\PYZus{}sensor}\PY{o}{.}\PY{n}{resample}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{10T}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{ffill}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{bfill}\PY{p}{(}\PY{p}{)}
+                \PY{c+c1}{\PYZsh{} print(resampled)}
+                
+            \PY{k}{return} \PY{n}{resampled}
+        
+        
+        
+        \PY{k}{def} \PY{n+nf}{addToData}\PY{p}{(}\PY{n}{name}\PY{p}{,} \PY{n}{pandas\PYZus{}series}\PY{p}{,} \PY{n}{data}\PY{p}{,} \PY{n}{first}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+sd}{    Formats the pandas objects into a data array}
+        \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+            
+            \PY{n}{indices} \PY{o}{=} \PY{n}{pandas\PYZus{}series}\PY{o}{.}\PY{n}{index}
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{pandas\PYZus{}series}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                \PY{k}{if} \PY{n}{first}\PY{o}{==}\PY{k+kc}{True}\PY{p}{:}
+                    \PY{n}{data}\PY{p}{[}\PY{n}{time}\PY{o}{.}\PY{n}{mktime}\PY{p}{(}\PY{n}{indices}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{to\PYZus{}pydatetime}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{timetuple}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+                
+                \PY{n}{data}\PY{p}{[}\PY{n}{time}\PY{o}{.}\PY{n}{mktime}\PY{p}{(}\PY{n}{indices}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{to\PYZus{}pydatetime}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{timetuple}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{n}{name}\PY{p}{]} \PY{o}{=} \PY{n}{pandas\PYZus{}series}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+        
+            \PY{k}{return} \PY{n}{data}
+        
+        
+        \PY{k}{def} \PY{n+nf}{getSortedNamedStream}\PY{p}{(}\PY{n}{zone}\PY{p}{,} \PY{n}{stream\PYZus{}name}\PY{p}{,} \PY{n}{prefix}\PY{p}{)}\PY{p}{:} 
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+sd}{    Gets sensor data for a specific zone}
+        \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+            
+            \PY{c+c1}{\PYZsh{} print(\PYZdq{}Getting data for zone : \PYZpc{}s , stream\PYZus{}name : \PYZpc{}s\PYZdq{} \PYZpc{} (zone, stream\PYZus{}name))}
+            
+            \PY{k}{try}\PY{p}{:}
+                \PY{n}{pd\PYZus{}stream} \PY{o}{=} \PY{n}{getAndFormatData}\PY{p}{(}\PY{n}{zone}\PY{p}{,} \PY{n}{stream\PYZus{}name}\PY{p}{,} \PY{n}{prefix}\PY{p}{)}
+            \PY{k}{except} \PY{p}{(}\PY{n+ne}{FileNotFoundError}\PY{p}{,} \PY{n+ne}{KeyError}\PY{p}{)} \PY{k}{as} \PY{n}{er}\PY{p}{:}
+                \PY{k}{return} \PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{p}{]}\PY{p}{)}
+            \PY{k}{else}\PY{p}{:}
+                \PY{n}{data} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+                \PY{n}{addToData}\PY{p}{(}\PY{n}{stream\PYZus{}name}\PY{p}{,} \PY{n}{pd\PYZus{}stream}\PY{p}{,} \PY{n}{data}\PY{p}{,} \PY{k+kc}{True}\PY{p}{)}
+                \PY{n}{retV} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        
+                \PY{k}{for} \PY{n}{t} \PY{o+ow}{in} \PY{n+nb}{sorted}\PY{p}{(}\PY{n}{data}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{retV}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{(}\PY{n}{t}\PY{p}{,} \PY{n}{data}\PY{p}{[}\PY{n}{t}\PY{p}{]}\PY{p}{[}\PY{n}{stream\PYZus{}name}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+        
+                \PY{n}{retT} \PY{o}{=} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{retV}\PY{p}{)}\PY{p}{)}
+                \PY{c+c1}{\PYZsh{} print(\PYZdq{}Length of series \PYZpc{}s:\PYZpc{}s is \PYZpc{}d \PYZdq{} \PYZpc{} (zone, stream\PYZus{}name, len(retT) ))}
+                \PY{n}{retV} \PY{o}{=} \PY{n+nb}{sorted}\PY{p}{(}\PY{n}{retV}\PY{p}{,} \PY{n}{key}\PY{o}{=}\PY{k}{lambda} \PY{n}{k}\PY{p}{:}\PY{n}{k}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+                \PY{n}{times} \PY{o}{=} \PY{p}{[} \PY{n+nb}{int}\PY{p}{(}\PY{n}{t}\PY{p}{)} \PY{k}{for} \PY{n}{t} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{retV}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+                \PY{n}{values} \PY{o}{=} \PY{p}{[} \PY{n}{v} \PY{k}{for} \PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{v}\PY{p}{)} \PY{o+ow}{in} \PY{n}{retV} \PY{p}{]}
+                
+                \PY{k}{return} \PY{p}{(}\PY{n}{times}\PY{p}{,} \PY{n}{values}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{} pulling in data}
+        
+        \PY{n}{tsdata} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+        
+        \PY{k}{for} \PY{n}{room} \PY{o+ow}{in} \PY{n}{room\PYZus{}list}\PY{p}{:}
+            \PY{n}{tsdata}\PY{p}{[}\PY{n}{room}\PY{p}{]} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+            
+            \PY{k}{for} \PY{n}{sensor} \PY{o+ow}{in} \PY{n}{sensor\PYZus{}list}\PY{p}{:}
+                \PY{c+c1}{\PYZsh{} prefix\PYZus{}list = [\PYZsq{}101\PYZsq{}, \PYZsq{}102\PYZsq{}, \PYZsq{}103\PYZsq{}, \PYZsq{}105\PYZsq{}, \PYZsq{}107\PYZsq{}, \PYZsq{}110\PYZsq{}, \PYZsq{}120\PYZsq{}, \PYZsq{}130\PYZsq{}, \PYZsq{}140\PYZsq{}]}
+                \PY{n}{prefix\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{110}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                \PY{c+c1}{\PYZsh{} print(sensor)}
+                \PY{k}{for} \PY{n}{prefix} \PY{o+ow}{in} \PY{n}{prefix\PYZus{}list}\PY{p}{:}
+                    \PY{n}{temp} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                    \PY{n}{temp}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{getSortedNamedStream}\PY{p}{(}\PY{n}{room}\PY{p}{,} \PY{n}{sensor}\PY{p}{,} \PY{n}{prefix}\PY{p}{)}\PY{p}{)}
+                    \PY{n}{tsdata}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{[}\PY{n}{sensor}\PY{p}{]} \PY{o}{=} \PY{n}{temp}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{k}{for} \PY{n}{room} \PY{o+ow}{in} \PY{n}{room\PYZus{}list}\PY{p}{:}
+            \PY{k}{for} \PY{n}{sensor} \PY{o+ow}{in} \PY{n}{sensor\PYZus{}list}\PY{p}{:}
+                \PY{k}{try}\PY{p}{:}
+                    \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{tsdata}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{[}\PY{n}{sensor}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mf}{0.5} \PY{o}{*} \PY{n}{maxnumreadings} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{:}
+                        \PY{c+c1}{\PYZsh{} print(\PYZdq{}Deleting sensor \PYZpc{}s in room : \PYZpc{}s due to missing data. Number of datapoints : \PYZpc{}s\PYZdq{} \PYZpc{} (sensor, room, len(tsdata[room][sensor][0])))}
+                        \PY{k}{del} \PY{n}{tsdata}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{[}\PY{n}{sensor}\PY{p}{]}
+                \PY{k}{except}\PY{p}{:}
+                    \PY{k}{pass}
+                
+        \PY{n}{black\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{k}{for} \PY{n}{room} \PY{o+ow}{in} \PY{n}{room\PYZus{}list}\PY{p}{:}
+            \PY{k}{try}\PY{p}{:}
+                \PY{k}{if} \PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{tsdata}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TL1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+                    \PY{k}{del} \PY{n}{tsdata}\PY{p}{[}\PY{n}{room}\PY{p}{]}
+                    \PY{n}{black\PYZus{}list}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{room}\PY{p}{)}
+            \PY{k}{except}\PY{p}{:}
+                \PY{n}{black\PYZus{}list}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{room}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{} temporary fix of the huge number problem:}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        
+        \PY{k}{for} \PY{n}{room} \PY{o+ow}{in} \PY{n}{room\PYZus{}list}\PY{p}{:}
+            \PY{k}{for} \PY{n}{sensor} \PY{o+ow}{in} \PY{n}{sensor\PYZus{}list}\PY{p}{:}
+                \PY{k}{if} \PY{p}{(}\PY{o+ow}{not}\PY{p}{(}\PY{n}{room} \PY{o+ow}{in} \PY{n}{black\PYZus{}list}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                    \PY{k}{try}\PY{p}{:}
+                        \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{tsdata}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{[}\PY{n}{sensor}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mi}{1}\PY{p}{:}
+                            \PY{n}{max\PYZus{}inx} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{tsdata}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{[}\PY{n}{sensor}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+                            \PY{n}{min\PYZus{}inx} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argmin}\PY{p}{(}\PY{n}{tsdata}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{[}\PY{n}{sensor}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+                            \PY{n}{tsdata}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{[}\PY{n}{sensor}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{n}{max\PYZus{}inx}\PY{p}{]} \PY{o}{=} \PY{n}{tsdata}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{[}\PY{n}{sensor}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{n}{min\PYZus{}inx}\PY{p}{]}
+                        \PY{k}{else}\PY{p}{:}
+                            \PY{n}{max\PYZus{}inx} \PY{o}{=} \PY{n}{argmax}\PY{p}{(}\PY{n}{tsdata}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{[}\PY{n}{sensor}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+                            \PY{n}{tsdata}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{[}\PY{n}{sensor}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{n}{max\PYZus{}inx}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+                    \PY{k}{except}\PY{p}{:}
+                        \PY{k}{pass}
+\end{Verbatim}
+
+
+    \subsection{Plotting Method}\label{plotting-method}
+
+the function 'plotAllSensorData' plots all the available sensors' value
+in a given zone if isSensorValue = 1. Otherwise, it plots an arbitrary
+series of data, such as temperature, in a given zone. This section
+follows a script that calls the function for each zone to plot their
+available sensors' data.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} plotting}
+        
+        \PY{n}{matplotlib}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{figure.figsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{l+m+mf}{30.0}\PY{p}{,} \PY{l+m+mf}{10.0}\PY{p}{)}
+        \PY{n}{colors} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TL1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TL3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}m}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TL5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TL8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TL6}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:c}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}
+        
+        \PY{k}{def} \PY{n+nf}{plotAllSensorData}\PY{p}{(}\PY{n}{zone}\PY{p}{,} \PY{n}{data}\PY{p}{,} \PY{n}{isSensorValue}\PY{p}{)}\PY{p}{:}
+            \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+            \PY{n}{ax2} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{twinx}\PY{p}{(}\PY{p}{)}
+            \PY{n}{ax3} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{twinx}\PY{p}{(}\PY{p}{)}
+            
+            \PY{c+c1}{\PYZsh{} Move the last y\PYZhy{}axis spine over to the right by x\PYZpc{} of the width of the axes}
+            \PY{n}{ax3}\PY{o}{.}\PY{n}{spines}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}position}\PY{p}{(}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{axes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mf}{1.05}\PY{p}{)}\PY{p}{)}
+            \PY{n}{ax3}\PY{o}{.}\PY{n}{set\PYZus{}frame\PYZus{}on}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+            \PY{n}{ax3}\PY{o}{.}\PY{n}{patch}\PY{o}{.}\PY{n}{set\PYZus{}visible}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}
+            \PY{n}{ax3}\PY{o}{.}\PY{n}{yaxis}\PY{o}{.}\PY{n}{set\PYZus{}major\PYZus{}formatter}\PY{p}{(}\PY{n}{matplotlib}\PY{o}{.}\PY{n}{ticker}\PY{o}{.}\PY{n}{OldScalarFormatter}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+            
+            \PY{n}{lines} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{n}{line\PYZus{}styles} \PY{o}{=} \PY{n}{cycle}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+            \PY{n}{colors} \PY{o}{=} \PY{n}{cycle}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C4}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C6}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C7}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C9}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{}cols = cycle([\PYZsq{}room temperature\PYZsq{}, \PYZsq{}room temperature setpoint\PYZsq{}, \PYZsq{}flow\PYZsq{}, \PYZsq{}flow setpoint\PYZsq{}, \PYZsq{}damper position\PYZsq{}])}
+            \PY{n}{cols} \PY{o}{=} \PY{n}{cycle}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Room Temperature}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Flow}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Differential Pressure}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Radiator Valve}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Damper Position}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+            
+            \PY{k}{if} \PY{p}{(}\PY{n}{isSensorValue}\PY{p}{)}\PY{p}{:}
+                \PY{k}{for} \PY{n}{sensor} \PY{o+ow}{in} \PY{n}{sensor\PYZus{}list}\PY{p}{:}
+                    \PY{k}{try}\PY{p}{:}
+                        \PY{n}{t}\PY{p}{,} \PY{n}{x} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{n}{zone}\PY{p}{]}\PY{p}{[}\PY{n}{sensor}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                        \PY{n}{x} \PY{o}{=} \PY{n}{x}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{5040}\PY{p}{]}
+                        \PY{n}{t} \PY{o}{=} \PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{5040}\PY{p}{]}
+                        \PY{n}{ls}\PY{o}{=} \PY{n+nb}{next}\PY{p}{(}\PY{n}{line\PYZus{}styles}\PY{p}{)}
+                        \PY{n}{color} \PY{o}{=} \PY{n+nb}{next}\PY{p}{(}\PY{n}{colors}\PY{p}{)}
+                        \PY{n}{col} \PY{o}{=} \PY{n+nb}{next}\PY{p}{(}\PY{n}{cols}\PY{p}{)}
+                        
+                        \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{t}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{linestyle} \PY{o}{=} \PY{n}{ls}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{col}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{n}{color}\PY{p}{)}
+        
+                        \PY{n}{numdays} \PY{o}{=} \PY{n}{math}\PY{o}{.}\PY{n}{floor}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{6}\PY{o}{*}\PY{l+m+mi}{24}\PY{p}{)}\PY{p}{)}
+                        \PY{n}{xticklabels} \PY{o}{=} \PY{n}{day\PYZus{}labels}\PY{o}{*}\PY{n+nb}{int}\PY{p}{(}\PY{n}{numdays}\PY{o}{/}\PY{l+m+mi}{7}\PY{p}{)}\PY{o}{+}\PY{n}{day\PYZus{}labels}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{p}{(}\PY{n}{numdays}\PY{o}{\PYZpc{}}\PY{k}{7})]
+        
+                        \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{6}\PY{o}{*}\PY{l+m+mi}{24}\PY{p}{)}\PY{p}{,} \PY{n}{xticklabels}\PY{p}{,} \PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{90}\PY{p}{)}
+                        \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.000001}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+                        \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZhy{}large}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        
+                        \PY{k}{if}\PY{p}{(}\PY{n}{col} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Temperature}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                            \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Temperature (C)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZhy{}large}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                        \PY{k}{elif}\PY{p}{(}\PY{n}{col} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Flow}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                            \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Flow (L/s)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZhy{}large}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                        \PY{k}{elif}\PY{p}{(}\PY{n}{col} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Differential Pressure}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                            \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Differential Pressure (Pa)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZhy{}large}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                        \PY{k}{elif}\PY{p}{(}\PY{n}{col} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Radiator Valve}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                            \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Radiator Valve}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZhy{}large}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                        \PY{k}{elif}\PY{p}{(}\PY{n}{col} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Damper Position}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                            \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Damper Position (}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZhy{}large}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+                    \PY{k}{except}\PY{p}{:}
+                        \PY{n}{ls}\PY{o}{=} \PY{n+nb}{next}\PY{p}{(}\PY{n}{line\PYZus{}styles}\PY{p}{)}
+                        \PY{n}{color} \PY{o}{=} \PY{n+nb}{next}\PY{p}{(}\PY{n}{colors}\PY{p}{)}
+                        \PY{n}{col} \PY{o}{=} \PY{n+nb}{next}\PY{p}{(}\PY{n}{cols}\PY{p}{)}
+                        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{No data for}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{sensor}\PY{p}{)}
+                        
+            \PY{k}{else}\PY{p}{:}
+                \PY{k}{try}\PY{p}{:}
+                    \PY{n}{x} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{n+nb}{int}\PY{p}{(}\PY{n}{zone}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                    \PY{n}{t} \PY{o}{=} \PY{n}{tsdata}\PY{p}{[}\PY{n+nb}{int}\PY{p}{(}\PY{n}{zone}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TL1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                    \PY{n}{x} \PY{o}{=} \PY{n}{x}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{1007}\PY{p}{]}
+                    
+                    \PY{n}{t} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{transpose}\PY{p}{(}\PY{n}{t}\PY{p}{)}\PY{p}{)}
+                    \PY{n}{t} \PY{o}{=} \PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{1008}\PY{p}{]}
+                    \PY{n}{w1} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                    \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{t}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                        \PY{n}{w1}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{t}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+                    \PY{c+c1}{\PYZsh{}print(t)}
+                    \PY{n}{w1} \PY{o}{=} \PY{n}{w1}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}
+                    \PY{n}{ls}\PY{o}{=} \PY{n+nb}{next}\PY{p}{(}\PY{n}{line\PYZus{}styles}\PY{p}{)}
+                    \PY{n}{color} \PY{o}{=} \PY{n+nb}{next}\PY{p}{(}\PY{n}{colors}\PY{p}{)}
+                    \PY{n}{col} \PY{o}{=} \PY{n+nb}{next}\PY{p}{(}\PY{n}{cols}\PY{p}{)}
+        
+                    \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{w1}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{linestyle} \PY{o}{=} \PY{n}{ls}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{col}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{n}{color}\PY{p}{)}
+                    \PY{n}{numdays} \PY{o}{=} \PY{n}{math}\PY{o}{.}\PY{n}{floor}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{6}\PY{o}{*}\PY{l+m+mi}{24}\PY{p}{)}\PY{p}{)}
+                    \PY{n}{xticklabels} \PY{o}{=} \PY{n}{day\PYZus{}labels}\PY{o}{*}\PY{n+nb}{int}\PY{p}{(}\PY{n}{numdays}\PY{o}{/}\PY{l+m+mi}{7}\PY{p}{)}\PY{o}{+}\PY{n}{day\PYZus{}labels}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{p}{(}\PY{n}{numdays}\PY{o}{\PYZpc{}}\PY{k}{7})]
+        
+                    \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{6}\PY{o}{*}\PY{l+m+mi}{24}\PY{p}{)}\PY{p}{,} \PY{n}{xticklabels}\PY{p}{,} \PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{90}\PY{p}{)}
+                    \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.000001}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+                    \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZhy{}large}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                    \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZhy{}large}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                \PY{k}{except}\PY{p}{:}
+                    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{No data for room }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{zone}\PY{p}{)}
+                    
+            \PY{n}{fig}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+            \PY{n}{fig}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{bbox\PYZus{}to\PYZus{}anchor}\PY{o}{=}\PY{p}{(}\PY{o}{.}\PY{l+m+mi}{92}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{95}\PY{p}{)}\PY{p}{,} \PY{n}{loc}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{borderaxespad}\PY{o}{=}\PY{l+m+mf}{0.}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{} for room in room\PYZus{}list:}
+        \PY{c+c1}{\PYZsh{}     if (not(room in black\PYZus{}list)):}
+        \PY{c+c1}{\PYZsh{}         print(\PYZdq{}Room No. is: \PYZdq{} + str(room))}
+        \PY{c+c1}{\PYZsh{}         \PYZsh{}print(tsdata[room])}
+        \PY{c+c1}{\PYZsh{}         plotAllSensorData(room, tsdata, 1)}
+\end{Verbatim}
+
+
+    \subsection{Aswani's Method for Obtaining Occupants' Trace on
+Temperature}\label{aswanis-method-for-obtaining-occupants-trace-on-temperature}
+
+https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=5985456
+
+We borrow the Discrete Time Model from the mentioned study, in order to
+model the temperature change for each zone. The model can be considered
+as semiparametric regression of partially linear models, as shown in the
+following equation:
+
+\begin{align}
+T[n+1] & =  \theta_1 T[n] + \theta_2 u[n] + \theta_3 w_1[n] + ... +\theta_n w_m[n] + q[n],
+\end{align}
+
+Where \(T[n], u[n]\) are temperature and control input in time \(n\);
+\(w_i, i=1...m\) are any factors that can affect temperature assuming to
+have linear relation with it. Finally, \(q[n]\) is changes of
+temperature due to several nonlinear behavior reasons like occupancy of
+people, equipment, external weather conditions. Based on a method given
+in
+(https://www.jstor.org/stable/1912705?seq=1\#page\_scan\_tab\_contents),
+we are able to calculate the coefficients \(\theta_i, i=1...n\). By
+plugging in the coefficients, and sensor readings representing
+\(T[n], u[n], w_i, i=1...m\), we are able to calculate \(q[n]\).
+
+The following is the assumption of this model:
+
+\begin{itemize}
+\tightlist
+\item
+  The relation between temperature change and some other factors is
+  linear, and
+\item
+  The temperature change in \(q[n]\) is mainly due to the occupancy of
+  humans.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+        \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} Aswani\PYZsq{}s Method for Obtaining Occupants\PYZsq{} Trace on Temperature \PYZsh{}\PYZsh{}\PYZsh{}}
+        \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+        
+        \PY{n}{X} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+        \PY{n}{X\PYZus{}original} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+        \PY{k}{for} \PY{n}{room} \PY{o+ow}{in} \PY{n}{room\PYZus{}list}\PY{p}{:}
+            \PY{k}{if} \PY{p}{(}\PY{o+ow}{not}\PY{p}{(}\PY{n}{room} \PY{o+ow}{in} \PY{n}{black\PYZus{}list}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                \PY{n}{X}\PY{p}{[}\PY{n}{room}\PY{p}{]} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+                \PY{n}{X\PYZus{}original}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+                \PY{k}{for} \PY{n}{sensor} \PY{o+ow}{in} \PY{n}{sensor\PYZus{}list}\PY{p}{:}
+                    \PY{k}{try}\PY{p}{:}
+                        \PY{n}{X}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{[}\PY{n}{sensor}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                        \PY{n}{X\PYZus{}original}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{[}\PY{n}{sensor}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                        \PY{k}{for} \PY{n}{data} \PY{o+ow}{in} \PY{n+nb}{range} \PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{tsdata}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{[}\PY{n}{sensor}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                            \PY{k}{try}\PY{p}{:}
+                                \PY{n}{X\PYZus{}original}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{[}\PY{n}{sensor}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{tsdata}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{[}\PY{n}{sensor}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{n}{data}\PY{p}{]}\PY{p}{)}
+                                \PY{k}{if} \PY{p}{(}\PY{n}{data} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+                                    \PY{n}{X}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{[}\PY{n}{sensor}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{tsdata}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{[}\PY{n}{sensor}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{n}{data}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{tsdata}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{[}\PY{n}{sensor}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{n}{data}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                                \PY{k}{else}\PY{p}{:}
+                                    \PY{n}{X}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{[}\PY{n}{sensor}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{tsdata}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{[}\PY{n}{sensor}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{n}{data}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{tsdata}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{[}\PY{n}{sensor}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{n}{data}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                            \PY{k}{except}\PY{p}{:}
+                                \PY{c+c1}{\PYZsh{} print(\PYZsq{}error is here\PYZsq{})}
+                                \PY{k}{pass}
+                    \PY{k}{except}\PY{p}{:}
+                        \PY{c+c1}{\PYZsh{} print(\PYZsq{}No data for \PYZsq{} + str(sensor) + \PYZsq{} in room \PYZsq{} + str(room))}
+                        \PY{k}{pass}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} ASWANI\PYZsq{}S METHOD FOR OBTAINING Q \PYZsh{}\PYZsh{}\PYZsh{}}
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+         
+         \PY{k+kn}{from} \PY{n+nn}{numpy} \PY{k}{import} \PY{o}{*}
+         \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{interpolate} \PY{k}{import} \PY{o}{*}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LinearRegression}
+         
+         \PY{n}{coefs} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+         \PY{n}{T\PYZus{}original} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+         \PY{n}{V\PYZus{}original} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+         \PY{k}{for} \PY{n}{room} \PY{o+ow}{in} \PY{n}{room\PYZus{}list}\PY{p}{:}
+             \PY{k}{if} \PY{p}{(}\PY{o+ow}{not}\PY{p}{(}\PY{n}{room} \PY{o+ow}{in} \PY{n}{black\PYZus{}list}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{T} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                 \PY{n}{V} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                 \PY{n}{T\PYZus{}original}\PY{p}{[}\PY{n}{room}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                 \PY{n}{V\PYZus{}original}\PY{p}{[}\PY{n}{room}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                 
+                 \PY{n}{coefs}\PY{p}{[}\PY{n}{room}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                 \PY{k}{for} \PY{n}{sensor} \PY{o+ow}{in} \PY{n}{sensor\PYZus{}list}\PY{p}{:}
+                     \PY{k}{if} \PY{p}{(}\PY{n}{sensor} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TL1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                             \PY{n}{T} \PY{o}{=} \PY{n}{X}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{[}\PY{n}{sensor}\PY{p}{]}
+                             \PY{n}{T\PYZus{}original}\PY{p}{[}\PY{n}{room}\PY{p}{]} \PY{o}{=} \PY{n}{X\PYZus{}original}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{[}\PY{n}{sensor}\PY{p}{]}
+                     \PY{k}{else}\PY{p}{:}
+                         \PY{k}{if} \PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{[}\PY{n}{sensor}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+                             \PY{k}{if} \PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{V}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+                                 \PY{n}{V} \PY{o}{=} \PY{n}{concatenate}\PY{p}{(}\PY{p}{(}\PY{n}{V}\PY{p}{,} \PY{p}{[}\PY{n}{X}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{[}\PY{n}{sensor}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                                 \PY{n}{V\PYZus{}original}\PY{p}{[}\PY{n}{room}\PY{p}{]} \PY{o}{=} \PY{n}{concatenate}\PY{p}{(}\PY{p}{(}\PY{n}{V\PYZus{}original}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{n}{X\PYZus{}original}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{[}\PY{n}{sensor}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                             \PY{k}{else}\PY{p}{:}
+                                 \PY{n}{V} \PY{o}{=} \PY{p}{[}\PY{n}{X}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{[}\PY{n}{sensor}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}
+                                 \PY{n}{V\PYZus{}original}\PY{p}{[}\PY{n}{room}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{n}{X\PYZus{}original}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{[}\PY{n}{sensor}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}
+                 \PY{k}{if} \PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{V}\PY{p}{)} \PY{o}{!=} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{V} \PY{o}{=} \PY{n}{concatenate}\PY{p}{(}\PY{p}{(}\PY{n}{V}\PY{p}{,} \PY{p}{[}\PY{n}{T}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                     \PY{n}{V\PYZus{}original}\PY{p}{[}\PY{n}{room}\PY{p}{]} \PY{o}{=} \PY{n}{concatenate}\PY{p}{(}\PY{p}{(}\PY{n}{V\PYZus{}original}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{n}{T\PYZus{}original}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{n}{V} \PY{o}{=} \PY{p}{[}\PY{n}{T}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{p}{]}
+                     \PY{n}{V\PYZus{}original}\PY{p}{[}\PY{n}{room}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{n}{T\PYZus{}original}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{p}{]}
+               
+                 \PY{n}{regressor} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}
+                 \PY{n}{Coffs} \PY{o}{=} \PY{n}{regressor}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{transpose}\PY{p}{(}\PY{n}{V}\PY{p}{)}\PY{p}{,} \PY{n}{T}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{coefs}\PY{p}{[}\PY{n}{room}\PY{p}{]} \PY{o}{=} \PY{n}{regressor}\PY{o}{.}\PY{n}{coef\PYZus{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{q} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+         \PY{k}{for} \PY{n}{room} \PY{o+ow}{in} \PY{n}{room\PYZus{}list}\PY{p}{:}
+             \PY{k}{if} \PY{p}{(}\PY{o+ow}{not}\PY{p}{(}\PY{n}{room} \PY{o+ow}{in} \PY{n}{black\PYZus{}list}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{if} \PY{p}{(}\PY{o+ow}{not}\PY{p}{(}\PY{n}{room} \PY{o+ow}{in} \PY{n}{black\PYZus{}list}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                     \PY{c+c1}{\PYZsh{}print(coefs[room])}
+                     \PY{n}{q}\PY{p}{[}\PY{n}{room}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                     \PY{n}{q}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{T\PYZus{}original}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{p}{(}\PY{n}{transpose}\PY{p}{(}\PY{n}{coefs}\PY{p}{[}\PY{n}{room}\PY{p}{]} \PY{o}{*} \PY{n}{transpose}\PY{p}{(}\PY{n}{V\PYZus{}original}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+                 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Naive Q Plotting}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{k}{for} \PY{n}{room} \PY{o+ow}{in} \PY{n}{room\PYZus{}list}\PY{p}{:}
+             \PY{k}{if} \PY{p}{(}\PY{o+ow}{not}\PY{p}{(}\PY{n}{room} \PY{o+ow}{in} \PY{n}{black\PYZus{}list}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Room No is: }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{room}\PY{p}{)}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{}print(q[106][0])}
+                 \PY{n}{plotAllSensorData}\PY{p}{(}\PY{n+nb}{str}\PY{p}{(}\PY{n}{room}\PY{p}{)}\PY{p}{,} \PY{n}{q}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Naive Q Plotting
+Room No is: 101
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 102
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 103
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_5.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 104
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_7.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 105
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_9.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 106
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_11.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 107
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_13.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 108
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_15.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 109
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_17.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 110
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_19.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 111
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_21.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 112
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_23.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 113
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_25.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 114
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_27.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 115
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_29.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 116
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_31.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 117
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_33.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 118
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_35.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 119
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_37.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 120
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_39.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 121
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_41.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 122
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_43.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 123
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_45.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 124
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_47.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 125
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_49.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 126
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_51.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 201
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_53.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 202
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_55.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 203
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_57.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 204
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_59.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 205
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_61.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 206
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_63.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 207
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_65.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 208
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_67.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 209
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_69.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 210
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_71.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 211
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_73.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 212
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_75.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 213
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_77.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 214
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_79.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 215
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_81.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 216
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_83.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 217
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_85.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 218
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_87.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 219
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_89.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 227
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_91.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 228
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_93.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 229
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_95.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 230
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_97.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 231
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_99.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 232
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_101.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 233
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_103.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 234
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_105.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 235
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_107.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 301
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_109.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 302
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_111.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 303
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_113.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 304
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_115.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 305
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_117.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 306
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_119.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 307
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_121.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 308
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_123.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 309
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_125.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 310
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_127.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 311
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_129.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 312
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_131.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 313
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_133.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 314
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_135.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 315
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_137.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 316
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_139.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 317
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_141.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 318
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_143.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 319
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_145.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 320
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_147.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 321
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_149.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 323
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_151.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 324
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_153.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 325
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_155.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 326
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_157.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 327
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_159.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 328
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_161.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Room No is: 329
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_163.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{\texorpdfstring{Excluding Outside Weather Data From
+\(q[n]\)}{Excluding Outside Weather Data From q{[}n{]}}}\label{excluding-outside-weather-data-from-qn}
+
+As mentioned before, the obtained \(q[n]\) is the temprature change due
+to several environmental factors, such as occupancy of people,
+equipment, external weather conditions. In this section we remove the
+external weather conditions from zones that have windows/doors to
+outside environment. To do so, we obtain weather data for the days
+included in our study. Specifically, temperature, windSpeed, sunrise and
+sunset times are extracted. By assuming that these factors have linear
+relation on the temperature change, then we can insert them as
+\(w_1, w_2, w_3, w_4\) in the Aswani's Discrete Time Model.
+
+The following is the assumption of this model:
+
+\begin{itemize}
+\tightlist
+\item
+  The relation between temperature change and some other factors is
+  linear,
+\item
+  The relation between temperature change and external weather
+  conditions is linear
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} EXCLUDING OUTSIDE WEATHER DATA \PYZsh{}\PYZsh{}\PYZsh{}}
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+         \PY{k+kn}{import} \PY{n+nn}{requests}
+         
+         \PY{k}{def} \PY{n+nf}{GetWeatherData}\PY{p}{(}\PY{n}{day}\PY{p}{)}\PY{p}{:}
+             \PY{n}{url} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{https://api.darksky.net/forecast/044b659c34748a0f15c31e5c2bc1cb9c/53.5444,\PYZhy{}113.4909,}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n}{day} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{?exclude=flags}\PY{l+s+s2}{\PYZdq{}}
+             \PY{n}{response} \PY{o}{=} \PY{n}{requests}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{n}{url}\PY{p}{)}
+             \PY{n}{data} \PY{o}{=} \PY{n}{response}\PY{o}{.}\PY{n}{json}\PY{p}{(}\PY{p}{)}
+             \PY{k}{return} \PY{n}{data}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{days} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1485154800}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1485241200}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1485327600}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1485414000}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1485500400}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1485586800}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1485673200}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PYZbs{}
+                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1485759600}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1485846000}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1485932400}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1486018800}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1486105200}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1486191600}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1486278000}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PYZbs{}
+                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1486364400}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1486450800}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1486537200}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1486623600}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1486710000}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1486796400}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1486882800}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PYZbs{}
+                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1486969200}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1487055600}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1487142000}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1487228400}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1487314800}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1487401200}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1487487600}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PYZbs{}
+                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1487574000}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1487660400}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1487746800}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1487833200}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1487919600}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1488006000}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1488092400}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PYZbs{}
+                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1488178800}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1488265200}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1488351600}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1488438000}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1488524400}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1488610800}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1488697200}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{c+c1}{\PYZsh{}days = [\PYZsq{}1485586800\PYZsq{}, \PYZsq{}1485673200\PYZsq{}, \PYZsq{}1485846000\PYZsq{}, \PYZsq{}1485932400\PYZsq{}, \PYZsq{}1486018800\PYZsq{}]}
+         
+         \PY{n}{weather\PYZus{}data} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{days}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{weather\PYZus{}data}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{GetWeatherData}\PY{p}{(}\PY{n}{days}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{tuned\PYZus{}data} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{day} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{days}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{k}{for} \PY{n}{hour} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{24}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{temp} \PY{o}{=} \PY{n}{weather\PYZus{}data}\PY{p}{[}\PY{n}{day}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hourly}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{hour}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{temperature}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                 \PY{n}{wind} \PY{o}{=} \PY{n}{weather\PYZus{}data}\PY{p}{[}\PY{n}{day}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hourly}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{hour}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{windSpeed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                 \PY{n}{sunr} \PY{o}{=} \PY{n}{weather\PYZus{}data}\PY{p}{[}\PY{n}{day}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{daily}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sunriseTime}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                 \PY{n}{suns} \PY{o}{=} \PY{n}{weather\PYZus{}data}\PY{p}{[}\PY{n}{day}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{daily}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sunsetTime}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                 
+                 \PY{k}{try}\PY{p}{:}
+                     \PY{n}{cloud} \PY{o}{=} \PY{n}{weather\PYZus{}data}\PY{p}{[}\PY{n}{day}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hourly}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{hour}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cloudCover}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                     
+                     \PY{k}{try}\PY{p}{:}
+                         \PY{k}{for} \PY{n}{index} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{tuned\PYZus{}data}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                             \PY{k}{if}\PY{p}{(}\PY{n}{tuned\PYZus{}data}\PY{p}{[}\PY{n}{index}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{==} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                                 \PY{n}{tuned\PYZus{}data}\PY{p}{[}\PY{n}{index}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{=} \PY{n}{cloud}\PY{p}{;}
+                     \PY{k}{except}\PY{p}{:}
+                         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{warning}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                         
+                 \PY{k}{except}\PY{p}{:}
+                     \PY{n}{cloud} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+                 
+                 \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{tuned\PYZus{}data}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{n}{temp}\PY{p}{,} \PY{n}{wind}\PY{p}{,} \PY{n}{cloud}\PY{p}{,} \PY{n}{sunr}\PY{p}{,} \PY{n}{suns}\PY{p}{]}\PY{p}{)}
+                     
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{n}{tuned\PYZus{}data} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{n}{tuned\PYZus{}data}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{latitude} \PY{o}{=} \PY{l+m+mf}{53.5444}
+         \PY{n}{longitude} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mf}{113.4909}
+         
+         \PY{n}{start\PYZus{}time} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2017\PYZhy{}01\PYZhy{}23 00:00:00}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{end\PYZus{}time} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2017\PYZhy{}03\PYZhy{}06 00:00:00}\PY{l+s+s1}{\PYZsq{}}
+         
+         \PY{n}{stime} \PY{o}{=} \PY{n}{start\PYZus{}time}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n}{etime} \PY{o}{=} \PY{n}{end\PYZus{}time}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+         
+         \PY{n}{tus} \PY{o}{=} \PY{n}{pvlib}\PY{o}{.}\PY{n}{location}\PY{o}{.}\PY{n}{Location}\PY{p}{(}\PY{n}{latitude}\PY{p}{,} \PY{n}{longitude}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{America/Edmonton}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{645}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Edmonton}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{times} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DatetimeIndex}\PY{p}{(}\PY{n}{start} \PY{o}{=} \PY{n}{start\PYZus{}time}\PY{p}{,} \PY{n}{end} \PY{o}{=} \PY{n}{end\PYZus{}time}\PY{p}{,} \PY{n}{freq}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{10min}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{tz}\PY{o}{=}\PY{n}{tus}\PY{o}{.}\PY{n}{tz}\PY{p}{)}
+         
+         \PY{n}{ephem\PYZus{}data} \PY{o}{=} \PY{n}{tus}\PY{o}{.}\PY{n}{get\PYZus{}solarposition}\PY{p}{(}\PY{n}{times}\PY{p}{)}
+         \PY{n}{irrad\PYZus{}data} \PY{o}{=} \PY{n}{tus}\PY{o}{.}\PY{n}{get\PYZus{}clearsky}\PY{p}{(}\PY{n}{times}\PY{p}{)}
+         
+         \PY{n}{sun\PYZus{}zen} \PY{o}{=} \PY{n}{ephem\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{apparent\PYZus{}zenith}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{AM} \PY{o}{=} \PY{n}{pvlib}\PY{o}{.}\PY{n}{atmosphere}\PY{o}{.}\PY{n}{relativeairmass}\PY{p}{(}\PY{n}{sun\PYZus{}zen}\PY{p}{)}
+         \PY{n}{dni\PYZus{}et} \PY{o}{=} \PY{n}{pvlib}\PY{o}{.}\PY{n}{irradiance}\PY{o}{.}\PY{n}{extraradiation}\PY{p}{(}\PY{n}{times}\PY{o}{.}\PY{n}{dayofyear}\PY{p}{)}
+         
+         \PY{n}{models} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{isotropic}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{klucher}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{haydavies}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{reindl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{king}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{perez}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{totals} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+         
+         \PY{c+c1}{\PYZsh{}for model in models:}
+         \PY{n}{model} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{isotropic}\PY{l+s+s1}{\PYZsq{}}
+         
+         \PY{n}{total} \PY{o}{=} \PY{n}{pvlib}\PY{o}{.}\PY{n}{irradiance}\PY{o}{.}\PY{n}{total\PYZus{}irrad}\PY{p}{(}\PY{l+m+mi}{60}\PY{p}{,} \PY{l+m+mi}{180}\PY{p}{,} \PY{n}{ephem\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{apparent\PYZus{}zenith}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{ephem\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{azimuth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                                                       \PY{n}{dni}\PY{o}{=}\PY{n}{irrad\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dni}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{ghi}\PY{o}{=}\PY{n}{irrad\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ghi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{dhi}\PY{o}{=}\PY{n}{irrad\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dhi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                                                       \PY{n}{dni\PYZus{}extra}\PY{o}{=}\PY{n}{dni\PYZus{}et}\PY{p}{,} \PY{n}{airmass}\PY{o}{=}\PY{n}{AM}\PY{p}{,}
+                                                       \PY{n}{model}\PY{o}{=}\PY{n}{model}\PY{p}{,}
+                                                       \PY{n}{surface\PYZus{}type}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{urban}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{solar\PYZus{}data} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{total}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+              \PY{n}{solar\PYZus{}data}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{n}{total}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{total}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} 
+                                 \PY{n}{total}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{total}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,} 
+                                 \PY{n}{total}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{solar\PYZus{}data} \PY{o}{=} \PY{n}{transpose}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{n}{solar\PYZus{}data}\PY{p}{)}\PY{p}{)}    
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{k+kn}{from} \PY{n+nn}{numpy} \PY{k}{import} \PY{o}{*}
+         \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{interpolate} \PY{k}{import} \PY{o}{*}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LinearRegression}
+         
+         \PY{n}{coefs\PYZus{}p} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+         \PY{n}{T\PYZus{}original\PYZus{}p} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+         \PY{n}{V\PYZus{}original\PYZus{}p} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+         \PY{k}{for} \PY{n}{room} \PY{o+ow}{in} \PY{n}{room\PYZus{}list}\PY{p}{:}
+             \PY{k}{if} \PY{p}{(}\PY{o+ow}{not}\PY{p}{(}\PY{n}{room} \PY{o+ow}{in} \PY{n}{black\PYZus{}list}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{T\PYZus{}p} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                 \PY{n}{V\PYZus{}p} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                 \PY{n}{T\PYZus{}original\PYZus{}p}\PY{p}{[}\PY{n}{room}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                 \PY{n}{V\PYZus{}original\PYZus{}p}\PY{p}{[}\PY{n}{room}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                 
+                 \PY{n}{coefs\PYZus{}p}\PY{p}{[}\PY{n}{room}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                 \PY{k}{for} \PY{n}{sensor} \PY{o+ow}{in} \PY{n}{sensor\PYZus{}list}\PY{p}{:}
+                     \PY{k}{if} \PY{p}{(}\PY{n}{sensor} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TL1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                             \PY{n}{T\PYZus{}p} \PY{o}{=} \PY{n}{X}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{[}\PY{n}{sensor}\PY{p}{]}
+                             \PY{n}{T\PYZus{}original\PYZus{}p}\PY{p}{[}\PY{n}{room}\PY{p}{]} \PY{o}{=} \PY{n}{X\PYZus{}original}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{[}\PY{n}{sensor}\PY{p}{]}
+                     \PY{k}{else}\PY{p}{:}
+                         \PY{k}{if} \PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{[}\PY{n}{sensor}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+                             \PY{k}{if} \PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{V\PYZus{}p}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+                                 \PY{n}{V\PYZus{}p} \PY{o}{=} \PY{n}{concatenate}\PY{p}{(}\PY{p}{(}\PY{n}{V\PYZus{}p}\PY{p}{,} \PY{p}{[}\PY{n}{X}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{[}\PY{n}{sensor}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                                 \PY{n}{V\PYZus{}original\PYZus{}p}\PY{p}{[}\PY{n}{room}\PY{p}{]} \PY{o}{=} \PY{n}{concatenate}\PY{p}{(}\PY{p}{(}\PY{n}{V\PYZus{}original\PYZus{}p}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{n}{X\PYZus{}original}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{[}\PY{n}{sensor}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                             \PY{k}{else}\PY{p}{:}
+                                 \PY{n}{V\PYZus{}p} \PY{o}{=} \PY{p}{[}\PY{n}{X}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{[}\PY{n}{sensor}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}
+                                 \PY{n}{V\PYZus{}original\PYZus{}p}\PY{p}{[}\PY{n}{room}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{n}{X\PYZus{}original}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{[}\PY{n}{sensor}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}
+         
+                 \PY{k}{if} \PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{V\PYZus{}p}\PY{p}{)} \PY{o}{!=} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{V\PYZus{}p} \PY{o}{=} \PY{n}{concatenate}\PY{p}{(}\PY{p}{(}\PY{n}{V\PYZus{}p}\PY{p}{,} \PY{p}{[}\PY{n}{T\PYZus{}p}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{n}{V\PYZus{}p} \PY{o}{=} \PY{p}{[}\PY{n}{T\PYZus{}p}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{p}{]}
+                     
+                 \PY{k}{if} \PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{V\PYZus{}original\PYZus{}p}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{)} \PY{o}{!=} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{V\PYZus{}original\PYZus{}p}\PY{p}{[}\PY{n}{room}\PY{p}{]} \PY{o}{=} \PY{n}{concatenate}\PY{p}{(}\PY{p}{(}\PY{n}{V\PYZus{}original\PYZus{}p}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{n}{T\PYZus{}original\PYZus{}p}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{n}{V\PYZus{}original\PYZus{}p}\PY{p}{[}\PY{n}{room}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{n}{T\PYZus{}original\PYZus{}p}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{p}{]}
+         
+                 \PY{n}{V\PYZus{}p} \PY{o}{=} \PY{n}{vstack}\PY{p}{(}\PY{p}{(}\PY{n}{V\PYZus{}p}\PY{p}{,} \PY{n}{tuned\PYZus{}data}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{V\PYZus{}p} \PY{o}{=} \PY{n}{vstack}\PY{p}{(}\PY{p}{(}\PY{n}{V\PYZus{}p}\PY{p}{,} \PY{n}{tuned\PYZus{}data}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{V\PYZus{}p} \PY{o}{=} \PY{n}{vstack}\PY{p}{(}\PY{p}{(}\PY{n}{V\PYZus{}p}\PY{p}{,} \PY{n}{tuned\PYZus{}data}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                    
+                 \PY{n}{V\PYZus{}p} \PY{o}{=} \PY{n}{vstack}\PY{p}{(}\PY{p}{(}\PY{n}{V\PYZus{}p}\PY{p}{,} \PY{n}{solar\PYZus{}data}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{V\PYZus{}p} \PY{o}{=} \PY{n}{vstack}\PY{p}{(}\PY{p}{(}\PY{n}{V\PYZus{}p}\PY{p}{,} \PY{n}{solar\PYZus{}data}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{V\PYZus{}p} \PY{o}{=} \PY{n}{vstack}\PY{p}{(}\PY{p}{(}\PY{n}{V\PYZus{}p}\PY{p}{,} \PY{n}{solar\PYZus{}data}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{V\PYZus{}p} \PY{o}{=} \PY{n}{vstack}\PY{p}{(}\PY{p}{(}\PY{n}{V\PYZus{}p}\PY{p}{,} \PY{n}{solar\PYZus{}data}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{V\PYZus{}p} \PY{o}{=} \PY{n}{vstack}\PY{p}{(}\PY{p}{(}\PY{n}{V\PYZus{}p}\PY{p}{,} \PY{n}{solar\PYZus{}data}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                 
+                 \PY{n}{V\PYZus{}original\PYZus{}p}\PY{p}{[}\PY{n}{room}\PY{p}{]} \PY{o}{=} \PY{n}{vstack}\PY{p}{(}\PY{p}{(}\PY{n}{V\PYZus{}original\PYZus{}p}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{,} \PY{n}{tuned\PYZus{}data}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{V\PYZus{}original\PYZus{}p}\PY{p}{[}\PY{n}{room}\PY{p}{]} \PY{o}{=} \PY{n}{vstack}\PY{p}{(}\PY{p}{(}\PY{n}{V\PYZus{}original\PYZus{}p}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{,} \PY{n}{tuned\PYZus{}data}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{V\PYZus{}original\PYZus{}p}\PY{p}{[}\PY{n}{room}\PY{p}{]} \PY{o}{=} \PY{n}{vstack}\PY{p}{(}\PY{p}{(}\PY{n}{V\PYZus{}original\PYZus{}p}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{,} \PY{n}{tuned\PYZus{}data}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                 
+                 \PY{n}{V\PYZus{}original\PYZus{}p}\PY{p}{[}\PY{n}{room}\PY{p}{]} \PY{o}{=} \PY{n}{vstack}\PY{p}{(}\PY{p}{(}\PY{n}{V\PYZus{}original\PYZus{}p}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{,} \PY{n}{solar\PYZus{}data}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{V\PYZus{}original\PYZus{}p}\PY{p}{[}\PY{n}{room}\PY{p}{]} \PY{o}{=} \PY{n}{vstack}\PY{p}{(}\PY{p}{(}\PY{n}{V\PYZus{}original\PYZus{}p}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{,} \PY{n}{solar\PYZus{}data}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{V\PYZus{}original\PYZus{}p}\PY{p}{[}\PY{n}{room}\PY{p}{]} \PY{o}{=} \PY{n}{vstack}\PY{p}{(}\PY{p}{(}\PY{n}{V\PYZus{}original\PYZus{}p}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{,} \PY{n}{solar\PYZus{}data}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{V\PYZus{}original\PYZus{}p}\PY{p}{[}\PY{n}{room}\PY{p}{]} \PY{o}{=} \PY{n}{vstack}\PY{p}{(}\PY{p}{(}\PY{n}{V\PYZus{}original\PYZus{}p}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{,} \PY{n}{solar\PYZus{}data}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{V\PYZus{}original\PYZus{}p}\PY{p}{[}\PY{n}{room}\PY{p}{]} \PY{o}{=} \PY{n}{vstack}\PY{p}{(}\PY{p}{(}\PY{n}{V\PYZus{}original\PYZus{}p}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{,} \PY{n}{solar\PYZus{}data}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                 
+                 \PY{n}{regressor} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}
+                 \PY{n}{Coffs} \PY{o}{=} \PY{n}{regressor}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{transpose}\PY{p}{(}\PY{n}{V\PYZus{}p}\PY{p}{)}\PY{p}{,} \PY{n}{T\PYZus{}p}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{coefs\PYZus{}p}\PY{p}{[}\PY{n}{room}\PY{p}{]} \PY{o}{=} \PY{n}{regressor}\PY{o}{.}\PY{n}{coef\PYZus{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{q\PYZus{}p} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+        \PY{k}{for} \PY{n}{room} \PY{o+ow}{in} \PY{n}{room\PYZus{}list}\PY{p}{:}
+            \PY{k}{if} \PY{p}{(}\PY{o+ow}{not}\PY{p}{(}\PY{n}{room} \PY{o+ow}{in} \PY{n}{black\PYZus{}list}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                \PY{c+c1}{\PYZsh{} if (not(room in interior\PYZus{}offices\PYZus{}private or room in corridors)):}
+                \PY{c+c1}{\PYZsh{} if (not(room in interior\PYZus{}offices\PYZus{}private)):}
+                \PY{k}{if}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{q\PYZus{}p}\PY{p}{[}\PY{n}{room}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                    \PY{n}{q\PYZus{}p}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{T\PYZus{}original\PYZus{}p}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{p}{(}\PY{n}{transpose}\PY{p}{(}\PY{n}{coefs\PYZus{}p}\PY{p}{[}\PY{n}{room}\PY{p}{]} \PY{o}{*} \PY{n}{transpose}\PY{p}{(}\PY{n}{V\PYZus{}original\PYZus{}p}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+                \PY{k}{else}\PY{p}{:}
+                    \PY{n}{q\PYZus{}p}\PY{p}{[}\PY{n}{room}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                    \PY{n}{q\PYZus{}p}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{q}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ploting Q, excluding weather effects}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{k}{for} \PY{n}{room} \PY{o+ow}{in} \PY{n}{room\PYZus{}list}\PY{p}{:}
+            \PY{k}{if} \PY{p}{(}\PY{o+ow}{not}\PY{p}{(}\PY{n}{room} \PY{o+ow}{in} \PY{n}{black\PYZus{}list}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb}{print}\PY{p}{(}\PY{n}{room}\PY{p}{)}
+                \PY{c+c1}{\PYZsh{} print(\PYZsq{}room no. is: \PYZsq{} + str(room) + \PYZsq{} Interior zone? \PYZsq{} + str((room in interior\PYZus{}offices\PYZus{}private or room in corridors)))}
+                \PY{n}{plotAllSensorData}\PY{p}{(}\PY{n+nb}{str}\PY{p}{(}\PY{n}{room}\PY{p}{)}\PY{p}{,} \PY{n}{q\PYZus{}p}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Ploting Q, excluding weather effects
+101
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_24_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+102
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_24_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+103
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_24_5.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+104
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_24_7.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+105
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_24_9.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+106
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_24_11.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+107
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_24_13.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+108
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_24_15.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+109
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_24_17.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+110
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_24_19.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+111
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_24_21.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+112
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_24_23.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Clustering and Fuzzy-Clustering Methods to Infer Occupancy
+Trace}\label{clustering-and-fuzzy-clustering-methods-to-infer-occupancy-trace}
+
+By observing the data streams for each room, it should be possible to
+determine if there is any occupants in the room or not. Therefore, we
+apply K-Means Clustering method for each room. We assumed that 2
+clusters exist, i.e. no occupants exist, occupants exist.
+
+Moreover, we applied K-Means Fuzzy Clustering method to the data. This
+is due to the intuition to include uncertainty in the clustering method.
+From this point of view, we can observe that how certain is the
+clustering method about the existence/non-existence of occupants.
+
+The following is the assumption of this model:
+
+\begin{itemize}
+\tightlist
+\item
+  The changes in data stream are significantly due to the occupancy
+  changes
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} plotting}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        
+        \PY{n}{matplotlib}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{figure.figsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{l+m+mf}{30.0}\PY{p}{,} \PY{l+m+mf}{10.0}\PY{p}{)}
+        
+        \PY{n}{colors} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TL1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TL3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}m}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TL5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TL8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TL6}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:c}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}
+        
+        \PY{k}{def} \PY{n+nf}{ClusterPlot}\PY{p}{(}\PY{n}{zone}\PY{p}{,} \PY{n}{data}\PY{p}{)}\PY{p}{:}
+            \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+            \PY{n}{ax2} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{twinx}\PY{p}{(}\PY{p}{)}
+            \PY{n}{ax3} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{twinx}\PY{p}{(}\PY{p}{)}
+            
+            \PY{c+c1}{\PYZsh{} Move the last y\PYZhy{}axis spine over to the right by x\PYZpc{} of the width of the axes}
+            \PY{n}{ax3}\PY{o}{.}\PY{n}{spines}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}position}\PY{p}{(}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{axes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mf}{1.05}\PY{p}{)}\PY{p}{)}
+            \PY{n}{ax3}\PY{o}{.}\PY{n}{set\PYZus{}frame\PYZus{}on}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+            \PY{n}{ax3}\PY{o}{.}\PY{n}{patch}\PY{o}{.}\PY{n}{set\PYZus{}visible}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}
+            \PY{n}{ax3}\PY{o}{.}\PY{n}{yaxis}\PY{o}{.}\PY{n}{set\PYZus{}major\PYZus{}formatter}\PY{p}{(}\PY{n}{matplotlib}\PY{o}{.}\PY{n}{ticker}\PY{o}{.}\PY{n}{OldScalarFormatter}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+            
+            \PY{n}{lines} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        
+            \PY{n}{x} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{n}{zone}\PY{p}{]}
+            \PY{n}{t} \PY{o}{=} \PY{n}{tsdata}\PY{p}{[}\PY{n}{zone}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TL1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+            \PY{n}{t} \PY{o}{=} \PY{n}{t}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{1008}\PY{p}{]}
+            \PY{c+c1}{\PYZsh{}t = np.array(transpose(t))}
+            \PY{c+c1}{\PYZsh{}print(t)}
+            \PY{n}{w1} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{t}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                \PY{n}{w1}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{t}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+            
+            \PY{c+c1}{\PYZsh{}w1 = w1[1:]}
+            
+            \PY{n}{w2} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                \PY{n}{w2}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+        
+            \PY{n}{w2} \PY{o}{=} \PY{n}{w2}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{1008}\PY{p}{]}
+            
+            \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{w1}\PY{p}{,} \PY{n}{w2}\PY{p}{,} \PY{n}{linestyle} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cluster Label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C9}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+            \PY{n}{numdays} \PY{o}{=} \PY{n}{math}\PY{o}{.}\PY{n}{floor}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{w2}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{6}\PY{o}{*}\PY{l+m+mi}{24}\PY{p}{)}\PY{p}{)}
+            \PY{n}{xticklabels} \PY{o}{=} \PY{n}{day\PYZus{}labels}\PY{o}{*}\PY{n+nb}{int}\PY{p}{(}\PY{n}{numdays}\PY{o}{/}\PY{l+m+mi}{7}\PY{p}{)}\PY{o}{+}\PY{n}{day\PYZus{}labels}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{p}{(}\PY{n}{numdays}\PY{o}{\PYZpc{}}\PY{k}{7})]
+        
+            \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{w2}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{6}\PY{o}{*}\PY{l+m+mi}{24}\PY{p}{)}\PY{p}{,} \PY{n}{xticklabels}\PY{p}{,} \PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{90}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.000001}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{w2}\PY{p}{)}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{n+nb}{min}\PY{p}{(}\PY{n}{w2}\PY{p}{)}\PY{p}{,} \PY{n+nb}{max}\PY{p}{(}\PY{n}{w2}\PY{p}{)}\PY{p}{)}
+            \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZhy{}large}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cluster Label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZhy{}large}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+            
+            \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+            \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+            \PY{n}{ax2} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{twinx}\PY{p}{(}\PY{p}{)}
+            \PY{n}{ax3} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{twinx}\PY{p}{(}\PY{p}{)}
+        
+            \PY{c+c1}{\PYZsh{} Move the last y\PYZhy{}axis spine over to the right by x\PYZpc{} of the width of the axes}
+            \PY{n}{ax3}\PY{o}{.}\PY{n}{spines}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}position}\PY{p}{(}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{axes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mf}{1.05}\PY{p}{)}\PY{p}{)}
+            \PY{n}{ax3}\PY{o}{.}\PY{n}{set\PYZus{}frame\PYZus{}on}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+            \PY{n}{ax3}\PY{o}{.}\PY{n}{patch}\PY{o}{.}\PY{n}{set\PYZus{}visible}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}
+            \PY{n}{ax3}\PY{o}{.}\PY{n}{yaxis}\PY{o}{.}\PY{n}{set\PYZus{}major\PYZus{}formatter}\PY{p}{(}\PY{n}{matplotlib}\PY{o}{.}\PY{n}{ticker}\PY{o}{.}\PY{n}{OldScalarFormatter}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        
+            \PY{n}{lines} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{n}{line\PYZus{}styles} \PY{o}{=} \PY{n}{cycle}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+            \PY{n}{colors} \PY{o}{=} \PY{n}{cycle}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C4}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C6}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C7}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C9}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{}cols = cycle([\PYZsq{}room temperature\PYZsq{}, \PYZsq{}room temperature setpoint\PYZsq{}, \PYZsq{}flow\PYZsq{}, \PYZsq{}flow setpoint\PYZsq{}, \PYZsq{}damper position\PYZsq{}])}
+            \PY{n}{cols} \PY{o}{=} \PY{n}{cycle}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Room Temperature}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Flow}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Differential Pressure}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Radiator Valve}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Damper Position}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        
+        
+            \PY{k}{for} \PY{n}{sensor} \PY{o+ow}{in} \PY{n}{sensor\PYZus{}list}\PY{p}{:}
+                \PY{k}{try}\PY{p}{:}
+                    \PY{n}{t}\PY{p}{,} \PY{n}{x} \PY{o}{=} \PY{n}{tsdata}\PY{p}{[}\PY{n}{zone}\PY{p}{]}\PY{p}{[}\PY{n}{sensor}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                    
+                    \PY{n}{t} \PY{o}{=} \PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{1008}\PY{p}{]}
+                    \PY{n}{x} \PY{o}{=} \PY{n}{x}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{1008}\PY{p}{]}
+                    
+                    \PY{n}{ls}\PY{o}{=} \PY{n+nb}{next}\PY{p}{(}\PY{n}{line\PYZus{}styles}\PY{p}{)}
+                    \PY{n}{color} \PY{o}{=} \PY{n+nb}{next}\PY{p}{(}\PY{n}{colors}\PY{p}{)}
+                    \PY{n}{col} \PY{o}{=} \PY{n+nb}{next}\PY{p}{(}\PY{n}{cols}\PY{p}{)}
+        
+                    \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{t}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{linestyle} \PY{o}{=} \PY{n}{ls}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{col}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{n}{color}\PY{p}{)}
+        
+                    \PY{n}{numdays} \PY{o}{=} \PY{n}{math}\PY{o}{.}\PY{n}{floor}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{6}\PY{o}{*}\PY{l+m+mi}{24}\PY{p}{)}\PY{p}{)}
+                    \PY{n}{xticklabels} \PY{o}{=} \PY{n}{day\PYZus{}labels}\PY{o}{*}\PY{n+nb}{int}\PY{p}{(}\PY{n}{numdays}\PY{o}{/}\PY{n}{days\PYZus{}number}\PY{p}{)}\PY{o}{+}\PY{n}{day\PYZus{}labels}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{p}{(}\PY{n}{numdays}\PY{o}{\PYZpc{}}\PY{k}{days\PYZus{}number})]
+        
+                    \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{6}\PY{o}{*}\PY{l+m+mi}{24}\PY{p}{)}\PY{p}{,} \PY{n}{xticklabels}\PY{p}{,} \PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{90}\PY{p}{)}
+                    \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.000001}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+                    \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZhy{}large}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        
+                    \PY{k}{if}\PY{p}{(}\PY{n}{col} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Temperature}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                        \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Temperature (C)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZhy{}large}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                    \PY{k}{elif}\PY{p}{(}\PY{n}{col} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Flow}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                        \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Flow (L/s)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZhy{}large}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                    \PY{k}{elif}\PY{p}{(}\PY{n}{col} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Differential Pressure}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                        \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Differential Pressure (Pa)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZhy{}large}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                    \PY{k}{elif}\PY{p}{(}\PY{n}{col} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Radiator Valve}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                        \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Radiator Valve}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZhy{}large}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                    \PY{k}{elif}\PY{p}{(}\PY{n}{col} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Damper Position}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                        \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Damper Position (}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZhy{}large}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+                \PY{k}{except}\PY{p}{:}
+                    \PY{n}{ls}\PY{o}{=} \PY{n+nb}{next}\PY{p}{(}\PY{n}{line\PYZus{}styles}\PY{p}{)}
+                    \PY{n}{color} \PY{o}{=} \PY{n+nb}{next}\PY{p}{(}\PY{n}{colors}\PY{p}{)}
+                    \PY{n}{col} \PY{o}{=} \PY{n+nb}{next}\PY{p}{(}\PY{n}{cols}\PY{p}{)}
+                    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{No data for}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{sensor}\PY{p}{)}
+        
+            \PY{n}{fig}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+            \PY{n}{fig}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{bbox\PYZus{}to\PYZus{}anchor}\PY{o}{=}\PY{p}{(}\PY{o}{.}\PY{l+m+mi}{92}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{95}\PY{p}{)}\PY{p}{,} \PY{n}{loc}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{borderaxespad}\PY{o}{=}\PY{l+m+mf}{0.}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} plotting}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        
+        \PY{n}{matplotlib}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{figure.figsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{l+m+mf}{30.0}\PY{p}{,} \PY{l+m+mf}{10.0}\PY{p}{)}
+        
+        \PY{n}{colors} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TL1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TL2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}m}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TL3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TL4}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TL6}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:c}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}
+        
+        \PY{k}{def} \PY{n+nf}{FuzzyClusterPlot}\PY{p}{(}\PY{n}{zone}\PY{p}{)}\PY{p}{:}
+            
+            \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+            \PY{n}{ax2} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{twinx}\PY{p}{(}\PY{p}{)}
+            \PY{n}{ax3} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{twinx}\PY{p}{(}\PY{p}{)}
+            
+            \PY{c+c1}{\PYZsh{} Move the last y\PYZhy{}axis spine over to the right by x\PYZpc{} of the width of the axes}
+            \PY{n}{ax3}\PY{o}{.}\PY{n}{spines}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}position}\PY{p}{(}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{axes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mf}{1.05}\PY{p}{)}\PY{p}{)}
+            \PY{n}{ax3}\PY{o}{.}\PY{n}{set\PYZus{}frame\PYZus{}on}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+            \PY{n}{ax3}\PY{o}{.}\PY{n}{patch}\PY{o}{.}\PY{n}{set\PYZus{}visible}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}
+            \PY{n}{ax3}\PY{o}{.}\PY{n}{yaxis}\PY{o}{.}\PY{n}{set\PYZus{}major\PYZus{}formatter}\PY{p}{(}\PY{n}{matplotlib}\PY{o}{.}\PY{n}{ticker}\PY{o}{.}\PY{n}{OldScalarFormatter}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+            
+            \PY{n}{lines} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{n}{line\PYZus{}styles} \PY{o}{=} \PY{n}{cycle}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+            \PY{n}{colors} \PY{o}{=} \PY{n}{cycle}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C4}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C6}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C7}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C9}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+            \PY{n}{cols} \PY{o}{=} \PY{n}{cycle}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cluster label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{room temperature}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{room temperature setpoint}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{flow}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{flow setpoint}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{damper position}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        
+            \PY{n}{x} \PY{o}{=} \PY{n}{result}\PY{p}{[}\PY{n}{zone}\PY{p}{]}
+           \PY{c+c1}{\PYZsh{} x = np.array(q[zone][0])}
+            \PY{n}{t} \PY{o}{=} \PY{n}{tsdata}\PY{p}{[}\PY{n}{zone}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TL1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+            \PY{c+c1}{\PYZsh{}t = np.array(transpose(t[:\PYZhy{}1]))}
+            \PY{n}{t} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{transpose}\PY{p}{(}\PY{n}{t}\PY{p}{)}\PY{p}{)}
+            
+            \PY{n}{x} \PY{o}{=} \PY{n}{x}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{1008}\PY{p}{]}
+            \PY{n}{t} \PY{o}{=} \PY{n}{t}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{1008}\PY{p}{]}
+            
+            \PY{n}{w1} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{t}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                \PY{n}{w1}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{t}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+            
+            \PY{c+c1}{\PYZsh{}w1 = w1[1:]}
+            
+            \PY{n}{w2} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                \PY{n}{w2}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+            
+            \PY{n}{ls}\PY{o}{=} \PY{n+nb}{next}\PY{p}{(}\PY{n}{line\PYZus{}styles}\PY{p}{)}
+            \PY{n}{color} \PY{o}{=} \PY{n+nb}{next}\PY{p}{(}\PY{n}{colors}\PY{p}{)}
+            \PY{n}{col} \PY{o}{=} \PY{n+nb}{next}\PY{p}{(}\PY{n}{cols}\PY{p}{)}
+        
+            \PY{n+nb}{print}\PY{p}{(}\PY{n}{col}\PY{p}{)}\PY{p}{;}
+            
+            \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{w1}\PY{p}{,} \PY{n}{w2}\PY{p}{,} \PY{n}{linestyle} \PY{o}{=} \PY{n}{ls}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{col}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{n}{color}\PY{p}{)}
+        
+            \PY{n}{numdays} \PY{o}{=} \PY{n}{math}\PY{o}{.}\PY{n}{floor}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{w2}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{6}\PY{o}{*}\PY{l+m+mi}{24}\PY{p}{)}\PY{p}{)}
+            \PY{n}{xticklabels} \PY{o}{=} \PY{n}{day\PYZus{}labels}\PY{o}{*}\PY{n+nb}{int}\PY{p}{(}\PY{n}{numdays}\PY{o}{/}\PY{l+m+mi}{7}\PY{p}{)}\PY{o}{+}\PY{n}{day\PYZus{}labels}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{p}{(}\PY{n}{numdays}\PY{o}{\PYZpc{}}\PY{k}{7})]
+        
+            \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{w2}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{6}\PY{o}{*}\PY{l+m+mi}{24}\PY{p}{)}\PY{p}{,} \PY{n}{xticklabels}\PY{p}{,} \PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{90}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.000001}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{w2}\PY{p}{)}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{n+nb}{min}\PY{p}{(}\PY{n}{w2}\PY{p}{)}\PY{p}{,} \PY{n+nb}{max}\PY{p}{(}\PY{n}{w2}\PY{p}{)}\PY{p}{)}
+            \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZhy{}large}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Temperature (C)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZhy{}large}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            
+                    
+            \PY{n}{fig}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+            \PY{n}{fig}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{bbox\PYZus{}to\PYZus{}anchor}\PY{o}{=}\PY{p}{(}\PY{o}{.}\PY{l+m+mi}{92}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{95}\PY{p}{)}\PY{p}{,} \PY{n}{loc}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{borderaxespad}\PY{o}{=}\PY{l+m+mf}{0.}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+        \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} Using Clustering to estimate occupancies \PYZsh{}\PYZsh{}\PYZsh{}}
+        \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+        
+        \PY{c+c1}{\PYZsh{}Input: Sensors ([\PYZsq{}TL1\PYZsq{}, \PYZsq{}TL3\PYZsq{}, \PYZsq{}TL5\PYZsq{}, \PYZsq{}TL8\PYZsq{}, \PYZsq{}TL6\PYZsq{}])}
+        \PY{c+c1}{\PYZsh{}Output: 1 = one or more peaple | 0 = no occupancies}
+        
+        \PY{c+c1}{\PYZsh{}Training Data: Weekend Data}
+        \PY{c+c1}{\PYZsh{}Labeling: Using 1) Clustering}
+        
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{cluster} \PY{k}{import} \PY{n}{KMeans}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{decomposition} \PY{k}{import} \PY{n}{PCA}
+        
+        \PY{k+kn}{import} \PY{n+nn}{plotly}\PY{n+nn}{.}\PY{n+nn}{graph\PYZus{}objs} \PY{k}{as} \PY{n+nn}{go}
+        \PY{k+kn}{from} \PY{n+nn}{plotly}\PY{n+nn}{.}\PY{n+nn}{offline} \PY{k}{import} \PY{n}{init\PYZus{}notebook\PYZus{}mode}\PY{p}{,} \PY{n}{iplot}
+        \PY{n}{init\PYZus{}notebook\PYZus{}mode}\PY{p}{(}\PY{p}{)}
+        
+        \PY{n}{weekend\PYZus{}weight} \PY{o}{=} \PY{l+m+mi}{1}
+        \PY{n}{weekday\PYZus{}weight} \PY{o}{=} \PY{l+m+mi}{1}
+        \PY{n}{number\PYZus{}of\PYZus{}days} \PY{o}{=} \PY{n}{days\PYZus{}number}
+        \PY{n}{number\PYZus{}of\PYZus{}classes} \PY{o}{=} \PY{l+m+mi}{2}
+        
+        \PY{n}{clustering\PYZus{}data} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+        
+        \PY{n}{weight} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n}{number\PYZus{}of\PYZus{}days} \PY{o}{*} \PY{l+m+mi}{144}\PY{p}{)}
+        
+        \PY{n}{weight}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{244}\PY{p}{]} \PY{o}{=} \PY{n}{weight}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{244}\PY{p}{]} \PY{o}{*} \PY{n}{weekend\PYZus{}weight}
+        \PY{n}{weight}\PY{p}{[}\PY{l+m+mi}{244}\PY{p}{:}\PY{n+nb}{len}\PY{p}{(}\PY{n}{weight}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{n}{weight}\PY{p}{[}\PY{l+m+mi}{244}\PY{p}{:}\PY{n+nb}{len}\PY{p}{(}\PY{n}{weight}\PY{p}{)}\PY{p}{]} \PY{o}{*} \PY{n}{weekday\PYZus{}weight}
+        
+        
+        \PY{k}{for} \PY{n}{room} \PY{o+ow}{in} \PY{n}{room\PYZus{}list}\PY{p}{:}
+            \PY{k}{if} \PY{p}{(}\PY{o+ow}{not}\PY{p}{(}\PY{n}{room} \PY{o+ow}{in} \PY{n}{black\PYZus{}list}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                \PY{n}{counter} \PY{o}{=} \PY{l+m+mi}{0}
+                \PY{n}{clustering\PYZus{}data}\PY{p}{[}\PY{n}{room}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                \PY{k}{for} \PY{n}{sensor} \PY{o+ow}{in} \PY{n}{sensor\PYZus{}list}\PY{p}{:}
+                    \PY{k}{try}\PY{p}{:}
+                        \PY{c+c1}{\PYZsh{}print(tsdata[room][sensor][1])}
+                        \PY{n}{clustering\PYZus{}data}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{tsdata}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{[}\PY{n}{sensor}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+        
+                    \PY{k}{except}\PY{p}{:}
+                        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{no data for sensor }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{sensor}\PY{p}{)} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ in room no. }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{room}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{cluster} \PY{o}{=} \PY{n}{KMeans}\PY{p}{(}\PY{n}{n\PYZus{}clusters} \PY{o}{=} \PY{n}{number\PYZus{}of\PYZus{}classes}\PY{p}{)}
+        
+        
+        \PY{c+c1}{\PYZsh{}print(tsdata[106])}
+        \PY{n}{result} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+        \PY{k}{for} \PY{n}{room} \PY{o+ow}{in} \PY{n}{room\PYZus{}list}\PY{p}{:}
+            \PY{k}{if} \PY{p}{(}\PY{o+ow}{not}\PY{p}{(}\PY{n}{room} \PY{o+ow}{in} \PY{n}{black\PYZus{}list}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                \PY{n}{result}\PY{p}{[}\PY{n}{room}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                \PY{n}{result}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{cluster}\PY{o}{.}\PY{n}{fit\PYZus{}predict}\PY{p}{(}\PY{n}{transpose}\PY{p}{(}\PY{n}{clustering\PYZus{}data}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        
+        \PY{k}{for} \PY{n}{room} \PY{o+ow}{in} \PY{n}{room\PYZus{}list}\PY{p}{:}
+            \PY{k}{if} \PY{p}{(}\PY{o+ow}{not}\PY{p}{(}\PY{n}{room} \PY{o+ow}{in} \PY{n}{black\PYZus{}list}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                \PY{c+c1}{\PYZsh{}print(str(room))}
+                \PY{n}{ClusterPlot}\PY{p}{(}\PY{n}{room}\PY{p}{,} \PY{n}{result}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+        \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} Using  Fuzzy Clustering to estimate occupancies \PYZsh{}\PYZsh{}\PYZsh{}}
+        \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+        
+        \PY{c+c1}{\PYZsh{}Input: Sensors ([\PYZsq{}TL1\PYZsq{}, \PYZsq{}TL3\PYZsq{}, \PYZsq{}TL5\PYZsq{}, \PYZsq{}TL8\PYZsq{}, \PYZsq{}TL6\PYZsq{}])}
+        \PY{c+c1}{\PYZsh{}Output: 1 = one or more peaple | 0 = no occupancies}
+        
+        \PY{c+c1}{\PYZsh{}Training Data: Weekend Data}
+        \PY{c+c1}{\PYZsh{}Labeling: Using 1) Clustering}
+        
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{cluster} \PY{k}{import} \PY{n}{KMeans}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{decomposition} \PY{k}{import} \PY{n}{PCA}
+        
+        \PY{k+kn}{import} \PY{n+nn}{skfuzzy} \PY{k}{as} \PY{n+nn}{fuzz}
+        
+        \PY{k+kn}{import} \PY{n+nn}{plotly}\PY{n+nn}{.}\PY{n+nn}{graph\PYZus{}objs} \PY{k}{as} \PY{n+nn}{go}
+        \PY{k+kn}{from} \PY{n+nn}{plotly}\PY{n+nn}{.}\PY{n+nn}{offline} \PY{k}{import} \PY{n}{init\PYZus{}notebook\PYZus{}mode}\PY{p}{,} \PY{n}{iplot}
+        \PY{n}{init\PYZus{}notebook\PYZus{}mode}\PY{p}{(}\PY{p}{)}
+        
+        \PY{n}{weekend\PYZus{}weight} \PY{o}{=} \PY{l+m+mi}{1}
+        \PY{n}{weekday\PYZus{}weight} \PY{o}{=} \PY{l+m+mi}{1}
+        \PY{n}{number\PYZus{}of\PYZus{}days} \PY{o}{=} \PY{l+m+mi}{7}
+        \PY{n}{number\PYZus{}of\PYZus{}classes} \PY{o}{=} \PY{l+m+mi}{2}
+        \PY{n}{exponentiation} \PY{o}{=} \PY{l+m+mi}{2}
+        \PY{n}{error} \PY{o}{=} \PY{l+m+mf}{0.005}
+        \PY{n}{maxiter} \PY{o}{=} \PY{l+m+mi}{1000}
+        \PY{n}{init} \PY{o}{=} \PY{k+kc}{None}
+        
+        \PY{n}{clustering\PYZus{}data} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+        
+        \PY{n}{weight} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n}{number\PYZus{}of\PYZus{}days} \PY{o}{*} \PY{l+m+mi}{144}\PY{p}{)}
+        
+        \PY{n}{weight}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{244}\PY{p}{]} \PY{o}{=} \PY{n}{weight}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{244}\PY{p}{]} \PY{o}{*} \PY{n}{weekend\PYZus{}weight}
+        \PY{n}{weight}\PY{p}{[}\PY{l+m+mi}{244}\PY{p}{:}\PY{n+nb}{len}\PY{p}{(}\PY{n}{weight}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{n}{weight}\PY{p}{[}\PY{l+m+mi}{244}\PY{p}{:}\PY{n+nb}{len}\PY{p}{(}\PY{n}{weight}\PY{p}{)}\PY{p}{]} \PY{o}{*} \PY{n}{weekday\PYZus{}weight}
+        
+        
+        \PY{k}{for} \PY{n}{room} \PY{o+ow}{in} \PY{n}{room\PYZus{}list}\PY{p}{:}
+            \PY{k}{if} \PY{p}{(}\PY{o+ow}{not}\PY{p}{(}\PY{n}{room} \PY{o+ow}{in} \PY{n}{black\PYZus{}list}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                \PY{n}{counter} \PY{o}{=} \PY{l+m+mi}{0}
+                \PY{n}{clustering\PYZus{}data}\PY{p}{[}\PY{n}{room}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                \PY{k}{for} \PY{n}{sensor} \PY{o+ow}{in} \PY{n}{sensor\PYZus{}list}\PY{p}{:}
+                    \PY{k}{try}\PY{p}{:}
+                        \PY{n}{clustering\PYZus{}data}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{tsdata}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{[}\PY{n}{sensor}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+        
+                    \PY{k}{except}\PY{p}{:}
+                        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{no data for sensor }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{sensor}\PY{p}{)} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ in room no. }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{room}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{fuzzy\PYZus{}result} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+        \PY{k}{for} \PY{n}{room} \PY{o+ow}{in} \PY{n}{room\PYZus{}list}\PY{p}{:}
+            \PY{k}{if} \PY{p}{(}\PY{o+ow}{not}\PY{p}{(}\PY{n}{room} \PY{o+ow}{in} \PY{n}{black\PYZus{}list}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                \PY{n}{fuzzy\PYZus{}result}\PY{p}{[}\PY{n}{room}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                \PY{n}{cntr}\PY{p}{,} \PY{n}{u}\PY{p}{,} \PY{n}{u0}\PY{p}{,} \PY{n}{d}\PY{p}{,} \PY{n}{jm}\PY{p}{,} \PY{n}{p}\PY{p}{,} \PY{n}{fpc} \PY{o}{=} \PY{n}{fuzz}\PY{o}{.}\PY{n}{cluster}\PY{o}{.}\PY{n}{cmeans}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{clustering\PYZus{}data}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{number\PYZus{}of\PYZus{}classes}\PY{p}{,} \PY{n}{exponentiation}\PY{p}{,} \PY{n}{error}\PY{p}{,} \PY{n}{maxiter}\PY{p}{,} \PY{n}{init}\PY{p}{)}
+                \PY{n}{sum1} \PY{o}{=} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{u}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+                \PY{n}{sum2} \PY{o}{=} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{u}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+        
+                \PY{k}{if} \PY{p}{(}\PY{n}{sum1} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{sum2}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{index} \PY{o}{=} \PY{l+m+mi}{1}
+                \PY{k}{else}\PY{p}{:}
+                    \PY{n}{index} \PY{o}{=} \PY{l+m+mi}{0}
+        
+                \PY{n}{fuzzy\PYZus{}result}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{u}\PY{p}{[}\PY{n}{index}\PY{p}{]}\PY{p}{)}
+        
+        \PY{k}{for} \PY{n}{room} \PY{o+ow}{in} \PY{n}{room\PYZus{}list}\PY{p}{:}
+            \PY{k}{if} \PY{p}{(}\PY{o+ow}{not}\PY{p}{(}\PY{n}{room} \PY{o+ow}{in} \PY{n}{black\PYZus{}list}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                \PY{c+c1}{\PYZsh{} print(\PYZsq{}room no. is: \PYZsq{} + str(room) + \PYZsq{} Interior zone? \PYZsq{} + str((room in interior\PYZus{}offices\PYZus{}private or room in corridors)))}
+                \PY{n}{ClusterPlot}\PY{p}{(}\PY{n}{room}\PY{p}{,} \PY{n}{fuzzy\PYZus{}result}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{Confidence Level of Fuzzy-Clustering
+Method}\label{confidence-level-of-fuzzy-clustering-method}
+
+The following section reports the average and standard deviation of
+fuzzy-clustering's confidence based on room types. As we can see, the
+method was less confident on perimeter rooms. This can be attributed to
+the fact that other environmental factors like outside weather
+conditions have more significant effect on these zones
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+        \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} Confidence Level based on room type \PYZsh{}\PYZsh{}\PYZsh{}}
+        \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+        \PY{k+kn}{import} \PY{n+nn}{math}
+        
+        \PY{k}{def} \PY{n+nf}{ConfidenceLevel}\PY{p}{(}\PY{n}{values}\PY{p}{)}\PY{p}{:}
+            \PY{n}{dist} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{;}
+            \PY{n}{temp} \PY{o}{=} \PY{p}{[}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.5} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{values}\PY{p}{]}
+            \PY{n}{raw} \PY{o}{=} \PY{p}{[}\PY{n+nb}{abs}\PY{p}{(}\PY{n}{number}\PY{p}{)} \PY{k}{for} \PY{n}{number} \PY{o+ow}{in} \PY{n}{temp}\PY{p}{]}
+            \PY{n}{norm} \PY{o}{=} \PY{p}{[}\PY{p}{(}\PY{n+nb}{float}\PY{p}{(}\PY{n}{i}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n+nb}{min}\PY{p}{(}\PY{n}{raw}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n+nb}{max}\PY{p}{(}\PY{n}{raw}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n+nb}{min}\PY{p}{(}\PY{n}{raw}\PY{p}{)} \PY{o}{+} \PY{l+m+mf}{1e\PYZhy{}30}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{raw}\PY{p}{]}
+            \PY{k}{if} \PY{o+ow}{not}\PY{p}{(}\PY{n}{math}\PY{o}{.}\PY{n}{isnan}\PY{p}{(}\PY{n}{norm}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                \PY{k}{return} \PY{p}{(}\PY{n+nb}{sum}\PY{p}{(}\PY{n}{norm}\PY{p}{)}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{norm}\PY{p}{)}\PY{p}{)}
+            \PY{k}{else}\PY{p}{:}
+                \PY{c+c1}{\PYZsh{} print(raw)}
+                \PY{k}{return} \PY{l+m+mi}{0}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        
+        \PY{n}{confis} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{k}{for} \PY{n}{room} \PY{o+ow}{in} \PY{n}{room\PYZus{}list}\PY{p}{:}
+            \PY{k}{if} \PY{p}{(}\PY{o+ow}{not}\PY{p}{(}\PY{n}{room} \PY{o+ow}{in} \PY{n}{black\PYZus{}list}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                \PY{n}{confis}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{ConfidenceLevel}\PY{p}{(}\PY{n}{fuzzy\PYZus{}result}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{All rooms average Confidence is: }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n+nb}{sum}\PY{p}{(}\PY{n}{confis}\PY{p}{)}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{confis}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{All rooms Confidence STD is: }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{confis}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} confis = []}
+        \PY{c+c1}{\PYZsh{} for room in corridors:}
+        \PY{c+c1}{\PYZsh{}     if (not(room in black\PYZus{}list)):}
+        \PY{c+c1}{\PYZsh{}         confis.append(ConfidenceLevel(fuzzy\PYZus{}result[room][0]))}
+        \PY{c+c1}{\PYZsh{} print(\PYZsq{}Corridors average Confidence is: \PYZsq{} + str(sum(confis)/len(confis)))}
+        \PY{c+c1}{\PYZsh{} print(\PYZsq{}Corridors Confidence STD is: \PYZsq{} + str(np.std(confis)) + \PYZsq{}\PYZbs{}n\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZbs{}n\PYZsq{})}
+        
+        \PY{c+c1}{\PYZsh{} confis = []}
+        \PY{c+c1}{\PYZsh{} for room in interior\PYZus{}offices\PYZus{}private:}
+        \PY{c+c1}{\PYZsh{}     if (not(room in black\PYZus{}list)):}
+        \PY{c+c1}{\PYZsh{}         confis.append(ConfidenceLevel(fuzzy\PYZus{}result[room][0]))}
+        \PY{c+c1}{\PYZsh{} print(\PYZsq{}Interior offices average Confidence is: \PYZsq{} + str(sum(confis)/len(confis)))}
+        \PY{c+c1}{\PYZsh{} print(\PYZsq{}Interior offices Confidence STD is: \PYZsq{} + str(np.std(confis)) + \PYZsq{}\PYZbs{}n\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZbs{}n\PYZsq{})}
+        
+        \PY{c+c1}{\PYZsh{} confis = []}
+        \PY{c+c1}{\PYZsh{} for room in exterior\PYZus{}offices\PYZus{}private:}
+        \PY{c+c1}{\PYZsh{}     if (not(room in black\PYZus{}list)):}
+        \PY{c+c1}{\PYZsh{}         confis.append(ConfidenceLevel(fuzzy\PYZus{}result[room][0]))}
+        \PY{c+c1}{\PYZsh{} print(\PYZsq{}Exterior offices average Confidence is: \PYZsq{} + str(sum(confis)/len(confis)))}
+        \PY{c+c1}{\PYZsh{} print(\PYZsq{}Exterior offices Confidence STD is: \PYZsq{} + str(np.std(confis)) + \PYZsq{}\PYZbs{}n\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZbs{}n\PYZsq{})}
+        
+        \PY{c+c1}{\PYZsh{} confis = []}
+        \PY{c+c1}{\PYZsh{} for room in facility\PYZus{}rooms:}
+        \PY{c+c1}{\PYZsh{}     if (not(room in black\PYZus{}list)):}
+        \PY{c+c1}{\PYZsh{}         confis.append(ConfidenceLevel(fuzzy\PYZus{}result[room][0]))}
+        \PY{c+c1}{\PYZsh{} print(\PYZsq{}Facility rooms average Confidence is: \PYZsq{} + str(sum(confis)/len(confis)))}
+        \PY{c+c1}{\PYZsh{} print(\PYZsq{}Facility rooms Confidence STD is: \PYZsq{} + str(np.std(confis)) + \PYZsq{}\PYZbs{}n\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZbs{}n\PYZsq{})}
+        
+        \PY{c+c1}{\PYZsh{} confis = []}
+        \PY{c+c1}{\PYZsh{} for room in shared\PYZus{}places:}
+        \PY{c+c1}{\PYZsh{}     if (not(room in black\PYZus{}list)):}
+        \PY{c+c1}{\PYZsh{}         confis.append(ConfidenceLevel(fuzzy\PYZus{}result[room][0]))}
+        \PY{c+c1}{\PYZsh{} print(\PYZsq{}Shared places average Confidence is: \PYZsq{} + str(sum(confis)/len(confis)))}
+        \PY{c+c1}{\PYZsh{} print(\PYZsq{}Shared places Confidence STD is: \PYZsq{} + str(np.std(confis)) + \PYZsq{}\PYZbs{}n\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZbs{}n\PYZsq{})}
+\end{Verbatim}
+
+
+    \subsection{Using a Classification Algorithm Based on Fuzzy Clustering
+Results}\label{using-a-classification-algorithm-based-on-fuzzy-clustering-results}
+
+The membership function in fuzzy clustering method can be seen as the
+number of occupants in a zone. To do so, we multiply by ten, the
+membership function value for the cluster that represents existence of
+occupants. The resulting values can be used as labels. Therefore, we
+train a sequential classifier on the sensor data for four weeks of data,
+and test it on the next two weeks of data.
+
+The following are the assumptions of this model:
+
+\begin{itemize}
+\tightlist
+\item
+  The fuzzy clustering result can be seen as the number of occupants
+\item
+  The maximum number of occupancy for each zone is 10
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+        \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} Using a classification algorithm based on fuzzy clustering results \PYZsh{}\PYZsh{}\PYZsh{}}
+        \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+        
+        \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{models} \PY{k}{import} \PY{n}{Sequential}
+        \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{layers} \PY{k}{import} \PY{n}{Dense}\PY{p}{,} \PY{n}{Dropout}\PY{p}{,} \PY{n}{Activation}
+        \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{layers} \PY{k}{import} \PY{n}{Embedding}
+        \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{layers} \PY{k}{import} \PY{n}{LSTM}
+        \PY{k+kn}{import} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{utils}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{pprint}
+        \PY{k+kn}{import} \PY{n+nn}{math}
+        \PY{k+kn}{import} \PY{n+nn}{keras}
+        \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{optimizers} \PY{k}{import} \PY{n}{SGD}
+        
+        
+        \PY{n}{training\PYZus{}chunk} \PY{o}{=} \PY{l+m+mi}{4032}
+        \PY{n}{validation\PYZus{}chunk} \PY{o}{=} \PY{l+m+mi}{576}
+        
+        \PY{n}{result2} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+        \PY{k}{for} \PY{n}{room} \PY{o+ow}{in} \PY{n}{room\PYZus{}list}\PY{p}{:}
+            \PY{k}{if} \PY{p}{(}\PY{o+ow}{not}\PY{p}{(}\PY{n}{room} \PY{o+ow}{in} \PY{n}{black\PYZus{}list}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                \PY{n}{result2}\PY{p}{[}\PY{n}{room}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{fuzzy\PYZus{}result}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{result2}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{n}{fuzzy\PYZus{}result}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{*} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{history} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+        \PY{n}{evaluations} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+        
+        \PY{k}{for} \PY{n}{room} \PY{o+ow}{in} \PY{n}{room\PYZus{}list}\PY{p}{:}
+            \PY{k}{if} \PY{p}{(}\PY{o+ow}{not}\PY{p}{(}\PY{n}{room} \PY{o+ow}{in} \PY{n}{black\PYZus{}list}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb}{print}\PY{p}{(}\PY{n}{room}\PY{p}{)}
+                \PY{n}{data\PYZus{}count} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{result2}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{)}
+                \PY{n}{features\PYZus{}count} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{clustering\PYZus{}data}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{)}
+                \PY{n}{classes\PYZus{}count} \PY{o}{=} \PY{n}{math}\PY{o}{.}\PY{n}{ceil}\PY{p}{(}\PY{n+nb}{max}\PY{p}{(}\PY{n}{result2}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{10}\PY{p}{)}
+        
+                \PY{n}{history}\PY{p}{[}\PY{n}{room}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                \PY{n}{labels\PYZus{}train} \PY{o}{=} \PY{n}{keras}\PY{o}{.}\PY{n}{utils}\PY{o}{.}\PY{n}{to\PYZus{}categorical}\PY{p}{(}\PY{n}{result2}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{n}{training\PYZus{}chunk}\PY{p}{]}\PY{p}{,} \PY{n}{num\PYZus{}classes}\PY{o}{=}\PY{n}{classes\PYZus{}count}\PY{p}{)}
+                \PY{n}{labels\PYZus{}test} \PY{o}{=} \PY{n}{keras}\PY{o}{.}\PY{n}{utils}\PY{o}{.}\PY{n}{to\PYZus{}categorical}\PY{p}{(}\PY{n}{result2}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{[}\PY{n}{training\PYZus{}chunk}\PY{p}{:}\PY{p}{]}\PY{p}{,} \PY{n}{num\PYZus{}classes}\PY{o}{=}\PY{n}{classes\PYZus{}count}\PY{p}{)}
+        
+                \PY{n}{X\PYZus{}train} \PY{o}{=} \PY{n}{transpose}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{n}{clustering\PYZus{}data}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{n}{training\PYZus{}chunk}\PY{p}{]}
+                \PY{n}{X\PYZus{}test} \PY{o}{=} \PY{n}{transpose}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{n}{clustering\PYZus{}data}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{n}{training\PYZus{}chunk}\PY{p}{:}\PY{p}{]}
+                \PY{n}{evaluations}\PY{p}{[}\PY{n}{room}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        
+                \PY{n}{model} \PY{o}{=} \PY{n}{Sequential}\PY{p}{(}\PY{p}{)}
+                \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dense}\PY{p}{(}\PY{n}{features\PYZus{}count}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{input\PYZus{}dim}\PY{o}{=}\PY{n}{features\PYZus{}count}\PY{p}{)}\PY{p}{)}
+                \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dense}\PY{p}{(}\PY{n}{classes\PYZus{}count}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{softmax}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+                \PY{n}{sgd} \PY{o}{=} \PY{n}{SGD}\PY{p}{(}\PY{n}{lr}\PY{o}{=}\PY{l+m+mf}{0.01}\PY{p}{,} \PY{n}{decay}\PY{o}{=}\PY{l+m+mf}{1e\PYZhy{}6}\PY{p}{,} \PY{n}{momentum}\PY{o}{=}\PY{l+m+mf}{0.9}\PY{p}{,} \PY{n}{nesterov}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+                \PY{n}{model}\PY{o}{.}\PY{n}{compile}\PY{p}{(}\PY{n}{loss}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{categorical\PYZus{}crossentropy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{optimizer}\PY{o}{=}\PY{n}{sgd}\PY{p}{,} \PY{n}{metrics}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+                \PY{n}{history}\PY{p}{[}\PY{n}{room}\PY{p}{]} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{labels\PYZus{}train}\PY{p}{,} \PY{n}{epochs}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{128}\PY{p}{)}
+                \PY{n}{evaluations}\PY{p}{[}\PY{n}{room}\PY{p}{]} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{evaluate}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{labels\PYZus{}test}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{128}\PY{p}{)}
+                
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{for} \PY{n}{room} \PY{o+ow}{in} \PY{n}{room\PYZus{}list}\PY{p}{:}
+            \PY{k}{if} \PY{p}{(}\PY{o+ow}{not}\PY{p}{(}\PY{n}{room} \PY{o+ow}{in} \PY{n}{black\PYZus{}list}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb}{print}\PY{p}{(}\PY{n}{room}\PY{p}{)}
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s1}{[loss, accuracy] on test data: }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{evaluations}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        
+        \PY{n}{accuracies} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+        \PY{k}{for} \PY{n}{room} \PY{o+ow}{in} \PY{n}{room\PYZus{}list}\PY{p}{:}
+            \PY{k}{if} \PY{p}{(}\PY{o+ow}{not}\PY{p}{(}\PY{n}{room} \PY{o+ow}{in} \PY{n}{black\PYZus{}list}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                \PY{n}{accuracies}\PY{p}{[}\PY{n}{room}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                \PY{n}{accuracies}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{evaluations}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+        
+        \PY{n}{acc} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{k}{for} \PY{n}{room} \PY{o+ow}{in} \PY{n}{corridors}\PY{p}{:}
+            \PY{k}{if} \PY{p}{(}\PY{o+ow}{not}\PY{p}{(}\PY{n}{room} \PY{o+ow}{in} \PY{n}{black\PYZus{}list}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                \PY{n}{acc}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{accuracies}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{All rooms mean is: }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n+nb}{sum}\PY{p}{(}\PY{n}{acc}\PY{p}{)}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{acc}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{All rooms STD is: }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{acc}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+                
+        \PY{c+c1}{\PYZsh{} acc = []}
+        \PY{c+c1}{\PYZsh{} for room in corridors:}
+        \PY{c+c1}{\PYZsh{}     if (not(room in black\PYZus{}list)):}
+        \PY{c+c1}{\PYZsh{}         acc.append(accuracies[room])}
+        \PY{c+c1}{\PYZsh{} print(\PYZsq{}Corridors mean is: \PYZsq{} + str(sum(acc)/len(acc)))}
+        \PY{c+c1}{\PYZsh{} print(\PYZsq{}Corridors STD is: \PYZsq{} + str(np.std(acc)) + \PYZsq{}\PYZbs{}n\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZbs{}n\PYZsq{})}
+        
+        \PY{c+c1}{\PYZsh{} acc = []}
+        \PY{c+c1}{\PYZsh{} for room in interior\PYZus{}offices\PYZus{}private:}
+        \PY{c+c1}{\PYZsh{}     if (not(room in black\PYZus{}list)):}
+        \PY{c+c1}{\PYZsh{}         acc.append(accuracies[room])}
+        \PY{c+c1}{\PYZsh{} print(\PYZsq{}Interior offices mean is: \PYZsq{} + str(sum(acc)/len(acc)))}
+        \PY{c+c1}{\PYZsh{} print(\PYZsq{}Interior offices STD is: \PYZsq{} + str(np.std(acc)) + \PYZsq{}\PYZbs{}n\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZbs{}n\PYZsq{})}
+        
+        \PY{c+c1}{\PYZsh{} acc = []}
+        \PY{c+c1}{\PYZsh{} for room in exterior\PYZus{}offices\PYZus{}private:}
+        \PY{c+c1}{\PYZsh{}     if (not(room in black\PYZus{}list)):}
+        \PY{c+c1}{\PYZsh{}         acc.append(accuracies[room])}
+        \PY{c+c1}{\PYZsh{} print(\PYZsq{}Exterior offices mean is: \PYZsq{} + str(sum(acc)/len(acc)))}
+        \PY{c+c1}{\PYZsh{} print(\PYZsq{}Exterior offices STD is: \PYZsq{} + str(np.std(acc)) + \PYZsq{}\PYZbs{}n\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZbs{}n\PYZsq{})}
+        
+        \PY{c+c1}{\PYZsh{} acc = []}
+        \PY{c+c1}{\PYZsh{} for room in facility\PYZus{}rooms:}
+        \PY{c+c1}{\PYZsh{}     if (not(room in black\PYZus{}list)):}
+        \PY{c+c1}{\PYZsh{}         acc.append(accuracies[room])}
+        \PY{c+c1}{\PYZsh{} print(\PYZsq{}Facility rooms mean is: \PYZsq{} + str(sum(acc)/len(acc)))}
+        \PY{c+c1}{\PYZsh{} print(\PYZsq{}Facility rooms STD is: \PYZsq{} + str(np.std(acc)) + \PYZsq{}\PYZbs{}n\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZbs{}n\PYZsq{})}
+        
+        \PY{c+c1}{\PYZsh{} acc = []}
+        \PY{c+c1}{\PYZsh{} for room in shared\PYZus{}places:}
+        \PY{c+c1}{\PYZsh{}     if (not(room in black\PYZus{}list)):}
+        \PY{c+c1}{\PYZsh{}         acc.append(accuracies[room])}
+        \PY{c+c1}{\PYZsh{} print(\PYZsq{}Shared places mean is: \PYZsq{} + str(sum(acc)/len(acc)))}
+        \PY{c+c1}{\PYZsh{} print(\PYZsq{}Shared places STD is: \PYZsq{} + str(np.std(acc)) + \PYZsq{}\PYZbs{}n\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZbs{}n\PYZsq{})}
+\end{Verbatim}
+
+
+    \subsection{\texorpdfstring{Designing a classifier to predict the
+\(q[n]\) from Aswani's
+Method}{Designing a classifier to predict the q{[}n{]} from Aswani's Method}}\label{designing-a-classifier-to-predict-the-qn-from-aswanis-method}
+
+The classifier has the same structure as the previous one. But now, we
+are interested to predict the value of \(q[n]\). So, the input the
+sensor values, and output of the classifier is \(q[n]\).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+        \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} Designing a classifier to predict the Aswani\PYZsq{}s Q \PYZsh{}\PYZsh{}\PYZsh{}}
+        \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+        
+        \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{models} \PY{k}{import} \PY{n}{Sequential}
+        \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{layers} \PY{k}{import} \PY{n}{Dense}\PY{p}{,} \PY{n}{Dropout}\PY{p}{,} \PY{n}{Activation}
+        \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{layers} \PY{k}{import} \PY{n}{Embedding}
+        \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{layers} \PY{k}{import} \PY{n}{LSTM}
+        \PY{k+kn}{import} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{utils}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{pprint}
+        \PY{k+kn}{import} \PY{n+nn}{math}
+        \PY{k+kn}{import} \PY{n+nn}{keras}
+        \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{optimizers} \PY{k}{import} \PY{n}{SGD}
+        
+        
+        \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+        
+        \PY{n}{training\PYZus{}chunk} \PY{o}{=} \PY{l+m+mi}{4032}
+        \PY{n}{validation\PYZus{}chunk} \PY{o}{=} \PY{l+m+mi}{576}
+        
+        \PY{n}{result2} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+        \PY{k}{for} \PY{n}{room} \PY{o+ow}{in} \PY{n}{room\PYZus{}list}\PY{p}{:}
+            \PY{k}{if} \PY{p}{(}\PY{o+ow}{not}\PY{p}{(}\PY{n}{room} \PY{o+ow}{in} \PY{n}{black\PYZus{}list}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                \PY{n}{result2}\PY{p}{[}\PY{n}{room}\PY{p}{]} \PY{o}{=} \PY{n}{q\PYZus{}p}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+        
+        \PY{n}{history} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+        \PY{n}{evaluations} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+        
+        \PY{k}{for} \PY{n}{room} \PY{o+ow}{in} \PY{n}{room\PYZus{}list}\PY{p}{:}
+            \PY{k}{if} \PY{p}{(}\PY{o+ow}{not}\PY{p}{(}\PY{n}{room} \PY{o+ow}{in} \PY{n}{black\PYZus{}list}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb}{print}\PY{p}{(}\PY{n}{room}\PY{p}{)}
+                \PY{n}{data\PYZus{}count} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{result2}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{)}
+                \PY{n}{features\PYZus{}count} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{clustering\PYZus{}data}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{)}
+                \PY{n}{classes\PYZus{}count} \PY{o}{=} \PY{n}{math}\PY{o}{.}\PY{n}{ceil}\PY{p}{(}\PY{n+nb}{max}\PY{p}{(}\PY{n}{result2}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{10}\PY{p}{)}
+        
+                \PY{n}{history}\PY{p}{[}\PY{n}{room}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                \PY{n}{labels\PYZus{}train} \PY{o}{=} \PY{n}{keras}\PY{o}{.}\PY{n}{utils}\PY{o}{.}\PY{n}{to\PYZus{}categorical}\PY{p}{(}\PY{n}{result2}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{n}{training\PYZus{}chunk}\PY{p}{]}\PY{p}{,} \PY{n}{num\PYZus{}classes}\PY{o}{=}\PY{n}{classes\PYZus{}count}\PY{p}{)}
+                \PY{n}{labels\PYZus{}test} \PY{o}{=} \PY{n}{keras}\PY{o}{.}\PY{n}{utils}\PY{o}{.}\PY{n}{to\PYZus{}categorical}\PY{p}{(}\PY{n}{result2}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{[}\PY{n}{training\PYZus{}chunk}\PY{p}{:}\PY{p}{]}\PY{p}{,} \PY{n}{num\PYZus{}classes}\PY{o}{=}\PY{n}{classes\PYZus{}count}\PY{p}{)}
+        
+                \PY{n}{X\PYZus{}train} \PY{o}{=} \PY{n}{transpose}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{n}{clustering\PYZus{}data}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{n}{training\PYZus{}chunk}\PY{p}{]}
+                \PY{n}{X\PYZus{}test} \PY{o}{=} \PY{n}{transpose}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{n}{clustering\PYZus{}data}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{n}{training\PYZus{}chunk}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+                \PY{n}{evaluations}\PY{p}{[}\PY{n}{room}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        
+                \PY{n}{model} \PY{o}{=} \PY{n}{Sequential}\PY{p}{(}\PY{p}{)}
+                \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dense}\PY{p}{(}\PY{n}{features\PYZus{}count}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{input\PYZus{}dim}\PY{o}{=}\PY{n}{features\PYZus{}count}\PY{p}{)}\PY{p}{)}
+                \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dense}\PY{p}{(}\PY{n}{classes\PYZus{}count}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{softmax}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+                \PY{n}{sgd} \PY{o}{=} \PY{n}{SGD}\PY{p}{(}\PY{n}{lr}\PY{o}{=}\PY{l+m+mf}{0.01}\PY{p}{,} \PY{n}{decay}\PY{o}{=}\PY{l+m+mf}{1e\PYZhy{}6}\PY{p}{,} \PY{n}{momentum}\PY{o}{=}\PY{l+m+mf}{0.9}\PY{p}{,} \PY{n}{nesterov}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+                \PY{n}{model}\PY{o}{.}\PY{n}{compile}\PY{p}{(}\PY{n}{loss}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{categorical\PYZus{}crossentropy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{optimizer}\PY{o}{=}\PY{n}{sgd}\PY{p}{,} \PY{n}{metrics}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+                \PY{n}{history}\PY{p}{[}\PY{n}{room}\PY{p}{]} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{labels\PYZus{}train}\PY{p}{,} \PY{n}{epochs}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{128}\PY{p}{)}
+                \PY{n}{evaluations}\PY{p}{[}\PY{n}{room}\PY{p}{]} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{evaluate}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{labels\PYZus{}test}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{128}\PY{p}{)}
+                
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        
+        \PY{n}{accuracies} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+        \PY{k}{for} \PY{n}{room} \PY{o+ow}{in} \PY{n}{room\PYZus{}list}\PY{p}{:}
+            \PY{k}{if} \PY{p}{(}\PY{o+ow}{not}\PY{p}{(}\PY{n}{room} \PY{o+ow}{in} \PY{n}{black\PYZus{}list}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                \PY{n}{accuracies}\PY{p}{[}\PY{n}{room}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                \PY{n}{accuracies}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{evaluations}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+        
+        \PY{n}{acc} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{k}{for} \PY{n}{room} \PY{o+ow}{in} \PY{n}{corridors}\PY{p}{:}
+            \PY{k}{if} \PY{p}{(}\PY{o+ow}{not}\PY{p}{(}\PY{n}{room} \PY{o+ow}{in} \PY{n}{black\PYZus{}list}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                \PY{n}{acc}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{accuracies}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{All rooms mean is: }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n+nb}{sum}\PY{p}{(}\PY{n}{acc}\PY{p}{)}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{acc}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{All rooms STD is: }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{acc}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                
+        \PY{c+c1}{\PYZsh{} acc = []}
+        \PY{c+c1}{\PYZsh{} for room in corridors:}
+        \PY{c+c1}{\PYZsh{}     if (not(room in black\PYZus{}list)):}
+        \PY{c+c1}{\PYZsh{}         acc.append(accuracies[room])}
+        \PY{c+c1}{\PYZsh{} print(\PYZsq{}Corridors mean is: \PYZsq{} + str(sum(acc)/len(acc)))}
+        \PY{c+c1}{\PYZsh{} print(\PYZsq{}Corridors STD is: \PYZsq{} + str(np.std(acc)) + \PYZsq{}\PYZbs{}n\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZbs{}n\PYZsq{})}
+        
+        \PY{c+c1}{\PYZsh{} acc = []}
+        \PY{c+c1}{\PYZsh{} for room in interior\PYZus{}offices\PYZus{}private:}
+        \PY{c+c1}{\PYZsh{}     if (not(room in black\PYZus{}list)):}
+        \PY{c+c1}{\PYZsh{}         acc.append(accuracies[room])}
+        \PY{c+c1}{\PYZsh{} print(\PYZsq{}Interior offices mean is: \PYZsq{} + str(sum(acc)/len(acc)))}
+        \PY{c+c1}{\PYZsh{} print(\PYZsq{}Interior offices STD is: \PYZsq{} + str(np.std(acc)) + \PYZsq{}\PYZbs{}n\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZbs{}n\PYZsq{})}
+        
+        \PY{c+c1}{\PYZsh{} acc = []}
+        \PY{c+c1}{\PYZsh{} for room in exterior\PYZus{}offices\PYZus{}private:}
+        \PY{c+c1}{\PYZsh{}     if (not(room in black\PYZus{}list)):}
+        \PY{c+c1}{\PYZsh{}         acc.append(accuracies[room])}
+        \PY{c+c1}{\PYZsh{} print(\PYZsq{}Exterior offices mean is: \PYZsq{} + str(sum(acc)/len(acc)))}
+        \PY{c+c1}{\PYZsh{} print(\PYZsq{}Exterior offices STD is: \PYZsq{} + str(np.std(acc)) + \PYZsq{}\PYZbs{}n\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZbs{}n\PYZsq{})}
+        
+        \PY{c+c1}{\PYZsh{} acc = []}
+        \PY{c+c1}{\PYZsh{} for room in facility\PYZus{}rooms:}
+        \PY{c+c1}{\PYZsh{}     if (not(room in black\PYZus{}list)):}
+        \PY{c+c1}{\PYZsh{}         acc.append(accuracies[room])}
+        \PY{c+c1}{\PYZsh{} print(\PYZsq{}Facility rooms mean is: \PYZsq{} + str(sum(acc)/len(acc)))}
+        \PY{c+c1}{\PYZsh{} print(\PYZsq{}Facility rooms STD is: \PYZsq{} + str(np.std(acc)) + \PYZsq{}\PYZbs{}n\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZbs{}n\PYZsq{})}
+        
+        \PY{c+c1}{\PYZsh{} acc = []}
+        \PY{c+c1}{\PYZsh{} for room in shared\PYZus{}places:}
+        \PY{c+c1}{\PYZsh{}     if (not(room in black\PYZus{}list)):}
+        \PY{c+c1}{\PYZsh{}         acc.append(accuracies[room])}
+        \PY{c+c1}{\PYZsh{} print(\PYZsq{}Shared places mean is: \PYZsq{} + str(sum(acc)/len(acc)))}
+        \PY{c+c1}{\PYZsh{} print(\PYZsq{}Shared places STD is: \PYZsq{} + str(np.std(acc)) + \PYZsq{}\PYZbs{}n\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZbs{}n\PYZsq{})}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{for} \PY{n}{room} \PY{o+ow}{in} \PY{n}{room\PYZus{}list}\PY{p}{:}
+            \PY{k}{if} \PY{p}{(}\PY{o+ow}{not}\PY{p}{(}\PY{n}{room} \PY{o+ow}{in} \PY{n}{black\PYZus{}list}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb}{print}\PY{p}{(}\PY{n}{room}\PY{p}{)}
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s1}{[loss, accuracy] on test data: }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{evaluations}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{Average of Fuzzy Clustering Method to Infer occupancies in a
+week}\label{average-of-fuzzy-clustering-method-to-infer-occupancies-in-a-week}
+
+Given six weeks of data and the fuzzy clustering result on the data, we
+are able to calculate the average of each time slot in a week. The
+result, for each zone, can be interpreted as how likely it is to have
+occupancy in a given time of a week.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+        \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} Average of fuzzy clustering to infer occupancies in a week \PYZsh{}\PYZsh{}\PYZsh{}}
+        \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{n}{number\PYZus{}of\PYZus{}weeks} \PY{o}{=} \PY{l+m+mi}{6}
+        
+        \PY{n}{occ} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+        \PY{k}{for} \PY{n}{room} \PY{o+ow}{in} \PY{n}{room\PYZus{}list}\PY{p}{:}
+            \PY{k}{if} \PY{p}{(}\PY{o+ow}{not}\PY{p}{(}\PY{n}{room} \PY{o+ow}{in} \PY{n}{black\PYZus{}list}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                \PY{n}{occ}\PY{p}{[}\PY{n}{room}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{1008}\PY{p}{)}\PY{p}{]}
+                \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{fuzzy\PYZus{}result}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{occ}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{o}{\PYZpc{}}\PY{k}{1008}] += fuzzy\PYZus{}result[room][0][i]
+        
+                \PY{n}{occ}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{n}{x} \PY{o}{/} \PY{n}{number\PYZus{}of\PYZus{}weeks} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{occ}\PY{p}{[}\PY{n}{room}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{for} \PY{n}{room} \PY{o+ow}{in} \PY{n}{room\PYZus{}list}\PY{p}{:}
+            \PY{k}{if} \PY{p}{(}\PY{o+ow}{not}\PY{p}{(}\PY{n}{room} \PY{o+ow}{in} \PY{n}{black\PYZus{}list}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                \PY{n}{plotAllSensorData}\PY{p}{(}\PY{n}{room}\PY{p}{,} \PY{n}{occ}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
