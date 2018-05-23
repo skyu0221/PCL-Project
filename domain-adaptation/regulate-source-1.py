@@ -1,5 +1,7 @@
 import csv
 import os
+import numpy as np
+from sklearn.linear_model import LinearRegression
 
 
 def merge_file():
@@ -22,7 +24,7 @@ def merge_file():
                                    "508-co2", "508-damper", "508-occupant",
                                    "604-co2", "604-damper", "604-occupant",
                                    "511-co2", "511-damper", "511-occupant",
-                                   "601-co2", "601-damper", "601-occupant",]]
+                                   "601-co2", "601-damper", "601-occupant"]]
 
                     for i in range(len(files)):
                         row_number = 0
@@ -53,25 +55,64 @@ def regulate():
             output = csv.writer(result, delimiter=',')
 
             output.writerow(next(data))
-            merge_line = []
-            counter = [0.] * 4
-            count_number = [0] * 4
+
+            all_data = []
+            rooms = [[[], []], [[], []], [[], []], [[], []]]
+            process = [[[], []], [[], []], [[], []], [[], []]]
+            value = [[], [], [], []]
+            coef = [[], [], [], []]
+            q = [[], [], [], []]
 
             for row in data:
-                merge_line.append(row)
-                for i in range(4):
-                    if float(row[i * 3 + 3]) == 0:
-                        count_number[i] += 1
-                        counter[i] += float(row[i * 3 + 1])
+                all_data.append(row)
+                for i in range(len(rooms)):
+                    rooms[i][0].append(float(row[i * 3 + 1]))
+                    rooms[i][1].append(float(row[i * 3 + 2]))
 
-            for i in range(len(counter)):
-                counter[i] //= count_number[i]
+            rooms = np.asarray(rooms)
 
-            for line in merge_line:
+            for room in range(len(rooms)):
+                for sensor in range(2):
+                    process[room][sensor].append(0.0)
+                    for data in range(1, len(rooms[room][sensor])):
+                        process[room][sensor].append(rooms[room][sensor][data] - np.mean(rooms[room][sensor][:data]))
+
+            for room in range(len(rooms)):
+                process_value = [process[room][1][:-1]]
+                process_value = np.concatenate((process_value, [process[room][0][1:]]))
+                value[room] = [rooms[room][1][:-1]]
+                value[room] = np.concatenate((value[room], [rooms[room][0][1:]]))
+
+                regression = LinearRegression()
+                regression.fit(np.transpose(process_value), process[room][0][:-1])
+                coef[room] = regression.coef_
+
+            for room in range(len(rooms)):
+                q[room] = rooms[room][0][1:] - (np.transpose(coef[room] * np.transpose(value[room])).sum(axis=0))
+
+            for i in range(len(all_data) - 1):
+                for room in range(len(rooms)):
+                    all_data[i][room * 3 + 1] = q[room][i]
+                output.writerow(all_data[i])
+
+
+def save_for_adaptation():
+    if not os.path.exists("./source-1/regulate-source.csv"):
+        regulate()
+
+    with open("./source-1/regulate-source.csv", 'r') as in_file:
+        with open("./source1.csv", 'w', newline="") as result:
+
+            data = csv.reader(in_file, delimiter=',')
+            output = csv.writer(result, delimiter=',')
+
+            next(data)
+            output.writerow(["CO2", "Damper", "Occupant"])
+
+            for row in data:
                 for i in range(4):
-                    line[i * 3 + 1] = str(max(float(line[i * 3 + 1]) - counter[i], 0))
-                output.writerow(line)
+                    output.writerow(row[i * 3 + 1:i * 3 + 4])
 
 
 if __name__ == "__main__":
-    regulate()
+    save_for_adaptation()
